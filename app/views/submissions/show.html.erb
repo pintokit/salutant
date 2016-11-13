@@ -11,8 +11,13 @@
 </p>
 
 <p>
-  <strong>Content:</strong>
-  <%= @submission.content %>
+  <strong>Body:</strong>
+  <%= @submission.content[:body] %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @submission.content[:phone] %>
 </p>
 
 <%= link_to 'Edit', edit_submission_path(@submission) %> |
