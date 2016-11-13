@@ -5,6 +5,9 @@
     "postdeploy": "rake db:migrate; rake db:seed"
   },
   "env": {
+    "APP_DOMAIN": {
+      "required": true
+    },
     "LANG": {
       "required": true
     },
