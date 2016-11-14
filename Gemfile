@@ -40,6 +40,8 @@ group :development, :test do
   gem 'byebug', platform: :mri
   # Testing framework for Rails 5.x
   gem 'rspec-rails', '~> 3.5.2'
+  # Access .env file before starting app
+  gem 'dotenv-rails'
 end
 
 group :development do
