@@ -29,7 +29,7 @@ class SubmissionsController < ApplicationController
 
     respond_to do |format|
       if @submission.save
-        format.html { redirect_to @submission, notice: 'Submission was successfully created.' }
+        format.html { redirect_to "http://www.davidsolis.me", notice: 'Submission was successfully created.' }
         format.json { render :show, status: :created, location: @submission }
       else
         format.html { render :new }
