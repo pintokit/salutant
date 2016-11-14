@@ -17,4 +17,9 @@
   <%= @submission.content[:phone] %>
 </p>
 
-<%= link_to 'Back', submissions_path, class:'btn btn-block btn-default' %>
+
+<%= link_to @submission, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-block btn-danger' do %>
+  <span class='glyphicon glyphicon-trash'></span>
+<% end %>
+
+<%= link_to 'Back', submissions_path, class:'btn btn-block btn-primary' %>
