@@ -2,22 +2,27 @@
 
 <h1>Submissions</h1>
 
-<table>
+<table class='table table-hover'>
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Content</th>
-      <th colspan="3"></th>
+      <th class='text-center'>Name</th>
+      <th class='text-center'>Email</th>
+      <th class='text-center'>Content</th>
+      <th colspan="1"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @submissions.each do |submission| %>
       <tr>
-        <td><%= submission.name %></td>
-        <td><%= submission.email %></td>
-        <td><%= submission.content %></td>
+        <td class='text-center'>
+          <%= submission.name %>
+        </td>
+        <td class='text-center'><%= submission.email %></td>
+        <td class='text-center'>
+          <%= submission.content[:body] %><br>
+          <%= submission.content[:phone] %>
+        </td>
         <td>
           <%= link_to submission, class: 'col-sm-offset-2 btn btn-primary' do %>
             <span class='glyphicon glyphicon-info-sign'></span>
