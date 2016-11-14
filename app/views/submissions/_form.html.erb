@@ -1,14 +1,9 @@
 <%= simple_form_for(@submission) do |f| %>
-  <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :name %>
-    <%= f.input :email %>
-    <%= f.input :body %>
-    <%= f.input :phone %>
-  </div>
+  <%= f.input :name %>
+  <%= f.input :email %>
+  <%= f.input :body %>
+  <%= f.input :phone %>
 
-  <div class="form-actions">
-    <%= f.button :submit, class: 'btn btn-block btn-success' %>
-  </div>
+  <%= f.button :submit, class: 'btn btn-block btn-success' %>
 <% end %>
