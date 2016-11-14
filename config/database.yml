@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  database: salutant_development
+  database: salutant_dev
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -83,3 +83,4 @@ production:
   database: salutant_production
   username: salutant
   password: <%= ENV['SALUTANT_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>

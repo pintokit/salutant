@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Submissions</h1>
+
+<table class='table table-hover'>
+  <thead>
+    <tr>
+      <th class='text-center'>Name</th>
+      <th class='text-center'>Email</th>
+      <th class='text-center'>Content</th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @submissions.each do |submission| %>
+      <tr>
+        <td class='text-center'>
+          <%= submission.name %>
+        </td>
+        <td class='text-center'><%= submission.email %></td>
+        <td class='text-center'>
+          <%= submission.content[:body] %><br>
+          <%= submission.content[:phone] %>
+        </td>
+        <td>
+          <%= link_to submission, class: 'col-sm-offset-2 btn btn-primary' do %>
+            <span class='glyphicon glyphicon-info-sign'></span>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Submission', new_submission_path %>

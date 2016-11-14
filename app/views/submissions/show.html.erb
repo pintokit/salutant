@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= @submission.name %></h1>
+
+<p>
+  <strong>Email:</strong>
+  <%= @submission.email %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @submission.content[:body] %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @submission.content[:phone] %>
+</p>
+
+
+<%= link_to @submission, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-block btn-danger' do %>
+  <span class='glyphicon glyphicon-trash'></span>
+<% end %>
+
+<%= link_to 'Back', submissions_path, class:'btn btn-block btn-primary' %>
