@@ -18,9 +18,11 @@
         <td><%= submission.name %></td>
         <td><%= submission.email %></td>
         <td><%= submission.content %></td>
-        <td><%= link_to 'Show', submission %></td>
-        <td><%= link_to 'Edit', edit_submission_path(submission) %></td>
-        <td><%= link_to 'Destroy', submission, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to submission, class: 'col-sm-offset-2 btn btn-primary' do %>
+            <span class='glyphicon glyphicon-info-sign'></span>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
