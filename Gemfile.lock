@@ -198,7 +198,7 @@ DEPENDENCIES
   redis (~> 3.0)
   rspec-rails (~> 3.5.2)
   sass-rails (~> 5.0)
-  simple_form
+  simple_form (~> 3.3.1)
   spring
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)
