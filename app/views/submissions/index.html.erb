@@ -16,7 +16,7 @@
         <td class="text-center"><%= submission.name %></td>
         <td class="text-center"><%= submission.email %></td>
         <td class="text-center">
-          <%= submission.content[:body].truncate(150) %><br>
+          <%= submission.content[:body].truncate(150) unless submission.content[:body].nil? %><br>
           <%= submission.content[:phone] %>
         </td>
         <td class="text-center">
