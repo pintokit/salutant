@@ -3,9 +3,9 @@
 <table class='table table-hover'>
   <thead>
     <tr>
-      <th class="text-center">Name</th>
-      <th class="text-center">Email</th>
-      <th class="text-center">Message</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Message</th>
       <th colspan="1"></th>
     </tr>
   </thead>
@@ -13,10 +13,14 @@
   <tbody>
     <% @submissions.each do |submission| %>
       <tr>
-        <td class="text-center"><%= submission.name %></td>
-        <td class="text-center"><%= submission.email %></td>
-        <td class="text-center">
-          <%= submission.content[:body].truncate(150) unless submission.content[:body].nil? %><br>
+        <td>
+          <%= submission.name.truncate(25) unless submission.name.nil? %>
+        </td>
+        <td>
+          <%= submission.email.truncate(35) unless submission.email.nil? %>
+        </td>
+        <td>
+          <%= submission.content[:body].truncate(50) unless submission.content[:body].nil? %><br>
           <%= submission.content[:phone] %>
         </td>
         <td class="text-center">
