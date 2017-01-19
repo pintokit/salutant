@@ -1,6 +1,6 @@
 {
   "name": "salutant",
-  "description": "Contact Form",
+  "description": "Process form submissions from static sites.",
   "scripts": {
     "postdeploy": "rake db:migrate; rake db:seed"
   },

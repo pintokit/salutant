@@ -80,7 +80,6 @@ test:
 #
 production:
   <<: *default
-  database: salutant_production
+  database: salutant_pro
   username: salutant
   password: <%= ENV['SALUTANT_DATABASE_PASSWORD'] %>
-  url: <%= ENV['DATABASE_URL'] %>

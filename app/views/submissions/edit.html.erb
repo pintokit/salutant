@@ -1,6 +1,9 @@
 <h1>Editing Submission</h1>
 
-<%= render 'form', submission: @submission %>
+<%= render 'form' %>
 
-<%= link_to 'Show', @submission %> |
-<%= link_to 'Back', submissions_path %>
+<%= link_to 'Back to Submissions', submissions_path, class:'btn btn-block btn-default' %>
+
+<%= link_to @submission, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-block btn-danger' do %>
+  <span class='glyphicon glyphicon-trash'></span>
+<% end %>

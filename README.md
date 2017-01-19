@@ -1,24 +1,38 @@
-# README
+# salutant
+# Process form submissions from static sites.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a Rails 5 app.
 
-Things you may want to cover:
+## Prerequisites
 
-* Ruby version
+This project requires:
 
-* System dependencies
+* Ruby 2.4.0, preferably managed using [rbenv][]
+* PostgreSQL must be installed and accepting connections
+* [Redis][] must be installed and running on localhost with the default port
 
-* Configuration
+On a Mac, you can obtain all of the above packages using [Homebrew][].
 
-* Database creation
+If you need help setting up a Ruby development environment, check out this [Rails OS X Setup Guide](https://mattbrictson.com/rails-osx-setup-guide).
 
-* Database initialization
+## Getting started
 
-* How to run the test suite
+### bin/setup
 
-* Services (job queues, cache servers, search engines, etc.)
+Run the `bin/setup` script. This script will:
 
-* Deployment instructions
+* Check you have the required Ruby version
+* Install gems using Bundler
+* Create local copies of `.env` and `database.yml`
+* Create, migrate, and seed the database
 
-* ...
+### Run it!
+
+1. Run `rake test` to make sure everything works.
+2. Run `rails s` to start the Rails app.
+3. In a separate console, run `bundle exec sidekiq` to start the Sidekiq background job processor.
+
+[rbenv]:https://github.com/sstephenson/rbenv
+[poltergeist]:https://github.com/teampoltergeist/poltergeist
+[redis]:http://redis.io
+[Homebrew]:http://brew.sh
