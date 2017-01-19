@@ -5,7 +5,7 @@
     <tr>
       <th class="text-center">Name</th>
       <th class="text-center">Email</th>
-      <th class="text-center">Content</th>
+      <th class="text-center">Message</th>
       <th colspan="1"></th>
     </tr>
   </thead>
@@ -14,8 +14,9 @@
     <% @submissions.each do |submission| %>
       <tr>
         <td class="text-center"><%= submission.name %></td>
+        <td class="text-center"><%= submission.email %></td>
         <td class="text-center">
-          <%= submission.content[:body] %><br>
+          <%= submission.content[:body].truncate(150) %><br>
           <%= submission.content[:phone] %>
         </td>
         <td class="text-center">
