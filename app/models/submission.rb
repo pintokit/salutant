@@ -1,4 +1,4 @@
 class Submission < ApplicationRecord
-  serialize :content, HashSerializer
+  serialize :content
   store_accessor :content, :body, :phone
 end
