@@ -30,6 +30,8 @@ gem 'simple_form'
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
+# Instrument your Ruby App and send the data to the Skylight servers
+gem 'skylight'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
