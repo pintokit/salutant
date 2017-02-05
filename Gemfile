@@ -9,6 +9,8 @@ gem 'pg'
 gem 'puma'
 # Use Redis adapter to run Action Cable in production
 gem 'redis'
+# Serialize your ActiveRecord objects into the desired response JSON
+gem 'active_model_serializers'
 
 # Use Font Awesome Rails for Font Awesome icons
 gem 'font-awesome-rails'
@@ -20,16 +22,12 @@ gem 'sass-rails'
 gem 'jquery-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'
-# Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails'
 
 # Rails forms made easy
 gem 'simple_form'
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder'
 # Instrument your Ruby App and send the data to the Skylight servers
 gem 'skylight'
 
@@ -52,6 +50,3 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen'
 end
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
