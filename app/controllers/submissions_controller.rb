@@ -23,6 +23,7 @@ class SubmissionsController < ApplicationController
   # POST /submissions
   def create
     @submission = Submission.new(submission_params)
+    headers['Access-Control-Allow-Origin'] = request.headers['Origin']
     response.headers['X-FRAME-OPTIONS'] = "ALLOW-FROM http://davidsolis.me"
 
     respond_to do |format|
