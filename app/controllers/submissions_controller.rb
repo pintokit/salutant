@@ -1,7 +1,5 @@
 class SubmissionsController < ApplicationController
-  before_action :allow_cors, only: :create
-  protect_from_forgery with: :null_session, only: :create
-  
+  allow_cors :create
   before_action :set_submission, only: [:show, :edit, :update, :destroy]
 
   # GET /submissions
@@ -65,8 +63,15 @@ class SubmissionsController < ApplicationController
       @submission = Submission.find(params[:id])
     end
 
-    def allow_cors
-      # Check that the `Origin` field matches front-end client host
+    def allow_cors(*actions)
+      before_action :cors_filter, only: :actions
+
+      # Rails recommends to use :null_session for APIs
+      protect_from_forgery with: :null_session, only: :actions
+    end
+
+    def cors_filter
+      # Check that the `Origin` field matches our front-end client host
       if is_approved_domain?
         headers['Access-Control-Allow-Origin'] = request.headers['Origin']
         @landing_page = request.headers['Origin']
