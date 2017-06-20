@@ -21,7 +21,7 @@
         </td>
         <td>
           <%= submission.content[:body].truncate(50) unless submission.content[:body].nil? %><br>
-          <%= submission.content[:phone] %>
+          <%= submission.content[:phone] unless submission.content[:phone].nil? %>
         </td>
         <td class="text-center">
           <%= link_to submission_path(submission), class: 'btn btn-default' do %>
