@@ -23,7 +23,8 @@ class SubmissionsController < ApplicationController
   # POST /submissions
   def create
     @submission = Submission.new(submission_params)
-
+    @landing_page = request.headers['Origin']
+    
     respond_to do |format|
       if @submission.save
         format.html { redirect_to @landing_page, notice: 'Submission was successfully created.' }
@@ -61,25 +62,6 @@ class SubmissionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_submission
       @submission = Submission.find(params[:id])
-    end
-
-    def allow_cors(*actions)
-      before_action :cors_filter, only: :actions
-
-      # Rails recommends to use :null_session for APIs
-      protect_from_forgery with: :null_session, only: :actions
-    end
-
-    def cors_filter
-      # Check that the `Origin` field matches our front-end client host
-      if is_approved_domain?
-        headers['Access-Control-Allow-Origin'] = request.headers['Origin']
-        @landing_page = request.headers['Origin']
-      end
-    end
-
-    def is_approved_domain?
-      request.headers['Origin'] == "http://davidsolis.me" || "http://davidmazza.com"
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
