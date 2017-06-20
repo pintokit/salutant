@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  protect_from_forgery with: :exception
+  
   # allow_cors takes in arbitrarily many symbols representing actions that
   # CORS should be enabled for
   def self.allow_cors(*methods)
@@ -16,6 +18,6 @@ class ApplicationController < ActionController::Base
   end
 
   def is_approved_domain?
-    request.headers['Origin'] == "http://davidsolis.me" || "http://davidmazza.com"
+    request.headers['Origin'] == "http://davidsolis.me"
   end
 end
