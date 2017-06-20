@@ -24,7 +24,7 @@ class SubmissionsController < ApplicationController
   # POST /submissions
   def create
     @submission = Submission.new(submission_params)
-
+    
     respond_to do |format|
       if @submission.save
         format.html { redirect_to @landing_page, notice: 'Submission was successfully created.' }
@@ -65,15 +65,7 @@ class SubmissionsController < ApplicationController
     end
 
     def set_landing_page
-      if request.domain == "davidsolis.me"
-        @landing_page = "http://davidsolis.me"
-      elsif request.domain == "davidmazza.com"
-        @landing_page = "http://davidmazza.com"
-      elsif request.domain == "soliskit.com"
-        @landing_page = "http://salutant.soliskit.com"
-      else
-        @landing_page = "http://localhost:5000"
-      end
+      @landing_page = request.headers['Origin']
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
