@@ -1,6 +1,7 @@
 class SubmissionsController < ApplicationController
   before_action :set_submission, only: [:show, :edit, :update, :destroy]
   before_action :set_landing_page, only: :create
+  allow_cors :create
 
   # GET /submissions
   def index
@@ -23,8 +24,6 @@ class SubmissionsController < ApplicationController
   # POST /submissions
   def create
     @submission = Submission.new(submission_params)
-    request.headers['Origin'] = "http://salutant.soliskit.com"
-    response.headers['X-FRAME-OPTIONS'] = "ALLOW-FROM http://davidsolis.me"
 
     respond_to do |format|
       if @submission.save
@@ -66,14 +65,8 @@ class SubmissionsController < ApplicationController
     end
 
     def set_landing_page
-      if request.domain == "davidsolis.me"
-        @landing_page = "http://davidsolis.me"
-      elsif request.domain == "davidmazza.com"
-        @landing_page = "http://davidmazza.com"
-      elsif request.domain == "soliskit.com"
-        @landing_page = "http://salutant.soliskit.com"
-      else
-        @landing_page = "http://localhost:5000"
+      if is_approved_domain?
+        @landing_page = request.headers['Origin']
       end
     end
 
