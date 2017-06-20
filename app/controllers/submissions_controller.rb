@@ -22,6 +22,7 @@ class SubmissionsController < ApplicationController
 
   # POST /submissions
   def create
+    request.base_url = "http://davidsolis.me"
     @submission = Submission.new(submission_params)
 
     respond_to do |format|
