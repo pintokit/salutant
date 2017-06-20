@@ -68,6 +68,8 @@ class SubmissionsController < ApplicationController
         @landing_page = "http://davidsolis.me"
       elsif request.domain == "davidmazza.com"
         @landing_page = "http://davidmazza.com"
+      elsif request.domain == "soliskit.com"
+        @landing_page = "http://salutant.soliskit.com"
       else
         @landing_page = "http://localhost:5000"
       end
