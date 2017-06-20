@@ -1,8 +1,8 @@
 class SubmissionsController < ApplicationController
   before_action :allow_cors, only: :create
   protect_from_forgery with: :null_session, only: :create
+  
   before_action :set_submission, only: [:show, :edit, :update, :destroy]
-  before_action :set_landing_page, only: :create
 
   # GET /submissions
   def index
