@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
     before_action :cors_before_filter, :only => methods
 
     # Rails recommends to use :null_session for APIs
-    protect_from_forgery with: :null_session, :only => methods
+    # protect_from_forgery with: :null_session, :only => methods
   end
 
   def cors_before_filter
