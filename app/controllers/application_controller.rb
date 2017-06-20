@@ -16,6 +16,6 @@ class ApplicationController < ActionController::Base
   end
 
   def is_approved_domain?
-    request.headers['Origin'] == "http://davidsolis.me" || "http://davidmazza.com"
+    request.headers['Origin'] == "http://davidmazza.com"
   end
 end
