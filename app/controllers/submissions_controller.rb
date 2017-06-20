@@ -1,6 +1,6 @@
 class SubmissionsController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: :create
   before_action :set_submission, only: [:show, :edit, :update, :destroy]
+  before_action :set_landing_page, only: :create
 
   # GET /submissions
   def index
@@ -26,7 +26,7 @@ class SubmissionsController < ApplicationController
 
     respond_to do |format|
       if @submission.save
-        format.html { redirect_to @submission, notice: 'Submission was successfully created.' }
+        format.html { redirect_to @landing_page, notice: 'Submission was successfully created.' }
         format.json { render :show, status: :created, location: @submission }
       else
         format.html { render :new }
@@ -61,6 +61,16 @@ class SubmissionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_submission
       @submission = Submission.find(params[:id])
+    end
+
+    def set_landing_page
+      if request.domain == "davidsolis.me"
+        @landing_page = "http://davidsolis.me"
+      elsif request.domain == "davidmazza.com"
+        @landing_page = "http://davidmazza.com"
+      else
+        @landing_page = "http://localhost:5000"
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
