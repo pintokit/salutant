@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
     before_action :cors_before_filter, :only => methods
 
     # Rails recommends to use :null_session for APIs
-    # protect_from_forgery with: :null_session, :only => methods
+    protect_from_forgery with: :null_session, :only => methods
   end
 
   def cors_before_filter
@@ -16,6 +16,6 @@ class ApplicationController < ActionController::Base
   end
 
   def is_approved_domain?
-    request.headers['Origin'] == "http://davidsolis.me" || "http://davidmazza.com" || "http://salutant.soliskit.com"
+    request.headers['Origin'] == "http://davidsolis.me" || "http://davidmazza.com"
   end
 end
