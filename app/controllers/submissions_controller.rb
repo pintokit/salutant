@@ -1,7 +1,8 @@
 class SubmissionsController < ApplicationController
+  before_action :allow_cors, only: :create
+  protect_from_forgery with: :null_session, only: :create
   before_action :set_submission, only: [:show, :edit, :update, :destroy]
   before_action :set_landing_page, only: :create
-  allow_cors :create
 
   # GET /submissions
   def index
@@ -64,10 +65,16 @@ class SubmissionsController < ApplicationController
       @submission = Submission.find(params[:id])
     end
 
-    def set_landing_page
+    def allow_cors
+      # Check that the `Origin` field matches front-end client host
       if is_approved_domain?
+        headers['Access-Control-Allow-Origin'] = request.headers['Origin']
         @landing_page = request.headers['Origin']
       end
+    end
+
+    def is_approved_domain?
+      request.headers['Origin'] == "http://davidsolis.me" || "http://davidmazza.com"
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
