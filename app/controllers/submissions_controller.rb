@@ -1,6 +1,7 @@
 class SubmissionsController < ApplicationController
   before_action :set_submission, only: [:show, :edit, :update, :destroy]
   before_action :set_landing_page, only: :create
+  allow_cors :create
 
   # GET /submissions
   def index
@@ -22,7 +23,6 @@ class SubmissionsController < ApplicationController
 
   # POST /submissions
   def create
-    request.base_url = "http://davidsolis.me"
     @submission = Submission.new(submission_params)
 
     respond_to do |format|
