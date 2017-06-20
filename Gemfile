@@ -25,6 +25,8 @@ gem 'uglifier'
 
 # Rails forms made easy
 gem 'simple_form'
+# Akismet is a collaborative spam filtering service.
+gem 'rakismet'
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks'
