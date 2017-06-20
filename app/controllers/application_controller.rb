@@ -10,8 +10,12 @@ class ApplicationController < ActionController::Base
 
   def cors_before_filter
     # Check that the `Origin` field matches our front-end client host
-    if /\Ahttp?:\/\/davidsolis.me\z/ =~ request.headers['Origin']
+    if is_approved_domain?
       headers['Access-Control-Allow-Origin'] = request.headers['Origin']
     end
+  end
+
+  def is_approved_domain?
+    request.headers['Origin'] == "http://davidsolis.me" || "http://davidmazza.com" || "http://salutant.soliskit.com"
   end
 end
