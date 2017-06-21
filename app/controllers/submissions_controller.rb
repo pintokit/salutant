@@ -22,9 +22,9 @@ class SubmissionsController < ApplicationController
 
   # POST /submissions
   def create
-    @submission = Submission.new(submission_params)
+    @submission = Submission.new(submission_params) if is_approved_domain?
     @landing_page = request.headers['Origin']
-    
+
     respond_to do |format|
       if @submission.save
         format.html { redirect_to @landing_page, notice: 'Submission was successfully created.' }
@@ -62,6 +62,10 @@ class SubmissionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_submission
       @submission = Submission.find(params[:id])
+    end
+
+    def is_approved_domain?
+      request.headers['Origin'] == "http://davidsolis.me" || "http://davidmazza.com"
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
