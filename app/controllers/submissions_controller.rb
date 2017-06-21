@@ -25,15 +25,15 @@ class SubmissionsController < ApplicationController
     if is_approved_domain?
       @submission = Submission.new(submission_params)
       @landing_page = request.headers['Origin']
-    end
 
-    respond_to do |format|
-      if @submission.save
-        format.html { redirect_to @landing_page, notice: 'Submission was successfully created.' }
-        format.json { render :show, status: :created, location: @submission }
-      else
-        format.html { render :new }
-        format.json { render json: @submission.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @submission.save
+          format.html { redirect_to @landing_page, notice: 'Submission was successfully created.' }
+          format.json { render :show, status: :created, location: @submission }
+        else
+          format.html { render :new }
+          format.json { render json: @submission.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
