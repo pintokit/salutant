@@ -22,8 +22,10 @@ class SubmissionsController < ApplicationController
 
   # POST /submissions
   def create
-    @submission = Submission.new(submission_params) if is_approved_domain?
-    @landing_page = request.headers['Origin']
+    if is_approved_domain?
+      @submission = Submission.new(submission_params)
+      @landing_page = request.headers['Origin']
+    end
 
     respond_to do |format|
       if @submission.save
