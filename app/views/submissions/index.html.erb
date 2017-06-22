@@ -6,7 +6,7 @@
       <th>Name</th>
       <th>Email</th>
       <th>Message</th>
-      <th colspan="1"></th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
@@ -22,6 +22,9 @@
         <td>
           <%= submission.content["body"].truncate(30) unless submission.content["body"].nil? %><br>
           <%= submission.content["phone"].truncate(15) unless submission.content["phone"].nil? %>
+        </td>
+        <td>
+          <%= submission[:filter_status] %>
         </td>
         <td class="text-center">
           <%= link_to submission_path(submission), class: 'btn btn-default' do %>
