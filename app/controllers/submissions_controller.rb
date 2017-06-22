@@ -74,6 +74,8 @@ class SubmissionsController < ApplicationController
         @submission.update! filter_result: :not_spam
         @landing_page = request.headers['Origin']
       end
+      logger.debug "RESPONSE: #{@submission.spam?}"
+      logger.debug "INSPECT: #{@submission.inspect}"
     end
 
     def train_filter
