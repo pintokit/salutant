@@ -27,9 +27,9 @@ class SubmissionsController < ApplicationController
     @landing_page = request.headers['Origin']
 
     if @submission.spam?
-      @submission.filter_result[:spam]
+      @submission.filter_result = :spam
     else
-      @submission.filter_result[:not_spam]
+      @submission.filter_result = :not_spam
     end
 
     respond_to do |format|
