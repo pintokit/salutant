@@ -1,6 +1,5 @@
 class SubmissionsController < ApplicationController
   allow_cors :create
-  before_action :filter_spam, only: :create
   before_action :set_submission, only: [:show, :edit, :update, :destroy]
 
   # GET /submissions
@@ -23,6 +22,7 @@ class SubmissionsController < ApplicationController
 
   # POST /submissions
   def create
+    @submission = Submission.new(submission_params)
     @landing_page = request.headers['Origin']
 
     respond_to do |format|
@@ -62,18 +62,6 @@ class SubmissionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_submission
       @submission = Submission.find(params[:id])
-    end
-
-    def filter_spam
-      if is_approved_domain?
-        @submission = Submission.new(submission_params)
-      else
-        @submission = nil
-      end
-    end
-
-    def is_approved_domain?
-      request.headers['Origin'] == "http://davidsolis.me" || "http://davidmazza.com"
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

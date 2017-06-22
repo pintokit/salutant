@@ -18,11 +18,14 @@ Bundler.require(*Rails.groups)
 
 module Salutant
   class Application < Rails::Application
-    
+
     # Sets Rails to log to stdout, prints SQL queries
     logger = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)
+
+    config.rakismet.key = ENV['RAKISMET_KEY']
+    config.rakismet.url = "http://#{ENV['APP_DOMAIN']}"
 
     # Generate Rspec fixtures without view, helper specs and asset files
     config.generators do |g|

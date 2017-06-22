@@ -5,7 +5,7 @@
     "postdeploy": "rake db:migrate; rake db:seed"
   },
   "env": {
-    "APP_DOMAIN": {
+    "HEROKU_APP_NAME": {
       "required": true
     },
     "LANG": {
@@ -21,6 +21,9 @@
       "required": true
     },
     "RAILS_SERVE_STATIC_FILES": {
+      "required": true
+    },
+    "RAKISMET_KEY": {
       "required": true
     },
     "SECRET_KEY_BASE": {

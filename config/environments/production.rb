@@ -81,6 +81,10 @@ Rails.application.configure do
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
 
+  if ENV['APP_DOMAIN'].nil?
+    ENV['APP_DOMAIN'] =  "#{ENV['HEROKU_APP_NAME']}.herokuapp.com"
+  end
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
