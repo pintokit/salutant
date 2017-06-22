@@ -1,6 +1,6 @@
 class SubmissionsController < ApplicationController
   allow_cors :create
-  before_action :recieve_message, only: :create
+  before_action :set_request, only: :create
   before_action :set_submission, only: [:show, :edit, :update, :destroy]
   after_action :train_filter, only: :update
 
@@ -24,13 +24,6 @@ class SubmissionsController < ApplicationController
 
   # POST /submissions
   def create
-    if @submission.spam?
-      @submission.update! filter_result: :spam
-    else
-      @submission.update! filter_result: :not_spam
-      @landing_page = request.headers['Origin']
-    end
-
     respond_to do |format|
       if @did_save
         format.html { redirect_to @landing_page, notice: 'Submission was successfully created.' }
@@ -70,10 +63,17 @@ class SubmissionsController < ApplicationController
       @submission = Submission.find(params[:id])
     end
 
-    def recieve_message
+    def set_request
       @submission = Submission.new(submission_params)
-      @submission.spam?
+      @submission.store(request)
       @did_save = @submission.save
+
+      if @submission.spam?
+        @submission.update! filter_result: :spam
+      else
+        @submission.update! filter_result: :not_spam
+        @landing_page = request.headers['Origin']
+      end
     end
 
     def train_filter
