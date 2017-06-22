@@ -24,16 +24,17 @@ class SubmissionsController < ApplicationController
   # POST /submissions
   def create
     @submission = Submission.new(submission_params)
-    @landing_page = request.headers['Origin']
+    did_save = @submission.save
 
     if @submission.spam?
-      @submission.filter_result = :spam
+      @submission.update! filter_result: :spam
     else
-      @submission.filter_result = :not_spam
+      @submission.update! filter_result: :not_spam
+      @landing_page = request.headers['Origin']
     end
 
     respond_to do |format|
-      if @submission.save
+      if did_save
         format.html { redirect_to @landing_page, notice: 'Submission was successfully created.' }
         format.json { render :show, status: :created, location: @submission }
       else
