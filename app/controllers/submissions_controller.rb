@@ -68,7 +68,7 @@ class SubmissionsController < ApplicationController
       @submission.store(request)
       @did_save = @submission.save
 
-      if @submission.spam?
+      if @submission.spam? == true
         @submission.update! filter_result: :spam
       else
         @submission.update! filter_result: :not_spam
