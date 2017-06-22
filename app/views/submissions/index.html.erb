@@ -20,8 +20,8 @@
           <%= submission.author_email.truncate(35) %>
         </td>
         <td>
-          <%= submission.content["body"].truncate(30) unless submission.content["body"].nil? %><br>
-          <%= submission.content["phone"].truncate(15) unless submission.content["phone"].nil? %>
+          <%= submission.content['body'].truncate(30) unless submission.content['body'].nil? %><br>
+          <%= submission.content['phone'].truncate(15) unless submission.content['phone'].nil? %>
         </td>
         <td>
           <%= submission[:filter_result] %>
