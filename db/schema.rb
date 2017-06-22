@@ -10,17 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170119011459) do
+ActiveRecord::Schema.define(version: 20170622181643) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "submissions", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email",                     null: false
-    t.jsonb    "content",    default: "{}"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+  create_table "submissions", id: :serial, force: :cascade do |t|
+    t.string "author"
+    t.string "author_email", null: false
+    t.jsonb "content", default: "{}"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "filter_status", default: 0
+    t.inet "user_ip"
+    t.string "user_agent"
+    t.string "referrer"
   end
 
 end
