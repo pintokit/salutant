@@ -1,5 +1,6 @@
 class SubmissionsController < ApplicationController
   allow_cors :create
+  before_action :recieve_message, only: :create
   before_action :set_submission, only: [:show, :edit, :update, :destroy]
   after_action :train_filter, only: :update
 
@@ -23,9 +24,6 @@ class SubmissionsController < ApplicationController
 
   # POST /submissions
   def create
-    @submission = Submission.new(submission_params)
-    did_save = @submission.save
-
     if @submission.spam?
       @submission.update! filter_result: :spam
     else
@@ -34,7 +32,7 @@ class SubmissionsController < ApplicationController
     end
 
     respond_to do |format|
-      if did_save
+      if @did_save
         format.html { redirect_to @landing_page, notice: 'Submission was successfully created.' }
         format.json { render :show, status: :created, location: @submission }
       else
@@ -70,6 +68,12 @@ class SubmissionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_submission
       @submission = Submission.find(params[:id])
+    end
+
+    def recieve_message
+      @submission = Submission.new(submission_params)
+      @submission.spam?
+      @did_save = @submission.save
     end
 
     def train_filter
