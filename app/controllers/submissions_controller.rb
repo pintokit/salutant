@@ -1,7 +1,7 @@
 class SubmissionsController < ApplicationController
   allow_cors :create
   before_action :set_submission, only: [:show, :edit, :update, :destroy]
-  after_update :train_filter, only: :update
+  after_action :train_filter, only: :update
 
   # GET /submissions
   def index
