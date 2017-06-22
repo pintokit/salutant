@@ -3,7 +3,7 @@ class Submission < ApplicationRecord
 
   serialize :content
   store_accessor :content, :body, :phone
-  rakismet_attrs :comment_type => "contact-form"
+  rakismet_attrs :comment_type => 'contact-form'
 
   enum filter_result: [:spam, :not_spam]
 end
