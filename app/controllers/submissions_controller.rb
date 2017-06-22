@@ -72,9 +72,9 @@ class SubmissionsController < ApplicationController
     end
 
     def train_filter
-      if @submission.filter_result[:not_spam]
+      if @submission.filter_result['not_spam']
         @submission.ham!
-      elsif @submission.filter_result[:spam]
+      elsif @submission.filter_result['spam']
         @submission.spam!
       end
     end
