@@ -24,6 +24,9 @@ module Salutant
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)
 
+    config.rakismet.key = ENV['RAKISMET_KEY']
+    config.rakismet.url = "http://#{ENV['APP_DOMAIN']}"
+
     # Generate Rspec fixtures without view, helper specs and asset files
     config.generators do |g|
       g.test_framework :rspec, fixture: true
