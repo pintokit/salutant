@@ -25,6 +25,10 @@ class SubmissionsController < ApplicationController
     @submission = Submission.new(submission_params)
     @landing_page = request.headers['Origin']
 
+    if @submission.spam?
+      @submission.filter_status[:spam]
+    end
+
     respond_to do |format|
       if @submission.save
         format.html { redirect_to @landing_page, notice: 'Submission was successfully created.' }
