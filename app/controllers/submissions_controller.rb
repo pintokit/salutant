@@ -1,5 +1,6 @@
 class SubmissionsController < ApplicationController
   allow_cors :create
+  before_action :filter_spam, only: :create
   before_action :set_submission, only: [:show, :edit, :update, :destroy]
 
   # GET /submissions
@@ -22,18 +23,15 @@ class SubmissionsController < ApplicationController
 
   # POST /submissions
   def create
-    if is_approved_domain?
-      @submission = Submission.new(submission_params)
-      @landing_page = request.headers['Origin']
+    @landing_page = request.headers['Origin']
 
-      respond_to do |format|
-        if @submission.save
-          format.html { redirect_to @landing_page, notice: 'Submission was successfully created.' }
-          format.json { render :show, status: :created, location: @submission }
-        else
-          format.html { render :new }
-          format.json { render json: @submission.errors, status: :unprocessable_entity }
-        end
+    respond_to do |format|
+      if @submission.save
+        format.html { redirect_to @landing_page, notice: 'Submission was successfully created.' }
+        format.json { render :show, status: :created, location: @submission }
+      else
+        format.html { render :new }
+        format.json { render json: @submission.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -64,6 +62,14 @@ class SubmissionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_submission
       @submission = Submission.find(params[:id])
+    end
+
+    def filter_spam
+      if is_approved_domain?
+        @submission = Submission.new(submission_params)
+      else
+        @submission = nil
+      end
     end
 
     def is_approved_domain?
