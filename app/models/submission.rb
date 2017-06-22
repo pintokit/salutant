@@ -5,5 +5,5 @@ class Submission < ApplicationRecord
   store_accessor :content, :body, :phone
   rakismet_attrs :comment_type => "contact-form"
 
-  enum filter_status: [:pass, :spam, :ham]
+  enum filter_result: [:spam, :valid]
 end

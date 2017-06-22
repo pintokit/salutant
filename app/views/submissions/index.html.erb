@@ -24,7 +24,7 @@
           <%= submission.content["phone"].truncate(15) unless submission.content["phone"].nil? %>
         </td>
         <td>
-          <%= submission[:filter_status] %>
+          <%= submission[:filter_result] %>
         </td>
         <td class="text-center">
           <%= link_to submission_path(submission), class: 'btn btn-default' do %>

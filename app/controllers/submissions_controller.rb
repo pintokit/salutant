@@ -26,7 +26,7 @@ class SubmissionsController < ApplicationController
     @landing_page = request.headers['Origin']
 
     if @submission.spam?
-      @submission.filter_status[:spam]
+      @submission.filter_result[:spam]
     end
 
     respond_to do |format|
@@ -70,6 +70,6 @@ class SubmissionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def submission_params
-      params.require(:submission).permit(:author, :author_email, :content, :body, :phone, :filter_status, :user_ip, :user_agent, :referrer)
+      params.require(:submission).permit(:author, :author_email, :content, :body, :phone, :filter_result, :user_ip, :user_agent, :referrer)
     end
 end
