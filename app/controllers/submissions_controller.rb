@@ -28,6 +28,8 @@ class SubmissionsController < ApplicationController
 
     if @submission.spam?
       @submission.filter_result[:spam]
+    else
+      @submission.filter_result[:not_spam]
     end
 
     respond_to do |format|
@@ -70,7 +72,7 @@ class SubmissionsController < ApplicationController
     end
 
     def train_filter
-      if @submission.filter_result[:valid]
+      if @submission.filter_result[:not_spam]
         @submission.ham!
       elsif @submission.filter_result[:spam]
         @submission.spam!
