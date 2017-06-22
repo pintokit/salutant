@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20170622181643) do
     t.jsonb "content", default: "{}"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "comment_type", default: "contact-form"
     t.integer "filter_result"
     t.inet "user_ip"
     t.string "user_agent"

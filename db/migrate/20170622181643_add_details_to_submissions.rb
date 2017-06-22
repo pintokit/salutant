@@ -2,6 +2,7 @@ class AddDetailsToSubmissions < ActiveRecord::Migration[5.1]
   def change
     rename_column :submissions, :name, :author
     rename_column :submissions, :email, :author_email
+    add_column :submissions, :comment_type, :string, default: "contact-form"
     add_column :submissions, :filter_result, :integer
     add_column :submissions, :user_ip, :inet
     add_column :submissions, :user_agent, :string
