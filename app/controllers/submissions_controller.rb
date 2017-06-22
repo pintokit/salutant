@@ -1,6 +1,7 @@
 class SubmissionsController < ApplicationController
   allow_cors :create
   before_action :set_submission, only: [:show, :edit, :update, :destroy]
+  after_update :train_filter, only: :update
 
   # GET /submissions
   def index
@@ -66,6 +67,14 @@ class SubmissionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_submission
       @submission = Submission.find(params[:id])
+    end
+
+    def train_filter
+      if @submission.filter_result[:valid]
+        @submission.ham!
+      elsif @submission.filter_result[:spam]
+        @submission.spam!
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
