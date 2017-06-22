@@ -24,8 +24,6 @@ class SubmissionsController < ApplicationController
 
   # POST /submissions
   def create
-    puts("#{@submission.akismet_response}")
-
     respond_to do |format|
       if @did_save
         format.html { redirect_to @landing_page, notice: 'Submission was successfully created.' }
