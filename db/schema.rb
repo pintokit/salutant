@@ -16,16 +16,12 @@ ActiveRecord::Schema.define(version: 20170622181643) do
   enable_extension "plpgsql"
 
   create_table "submissions", id: :serial, force: :cascade do |t|
-    t.string "author"
-    t.string "author_email", null: false
+    t.string "name"
+    t.string "email", null: false
     t.jsonb "content", default: "{}"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "comment_type", default: "contact-form"
     t.integer "filter_result"
-    t.inet "user_ip"
-    t.string "user_agent"
-    t.string "referrer"
   end
 
 end

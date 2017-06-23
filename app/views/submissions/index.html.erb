@@ -14,10 +14,10 @@
     <% @submissions.each do |submission| %>
       <tr>
         <td>
-          <%= submission.author.truncate(25) unless submission.author.nil? %>
+          <%= submission.name.truncate(25) unless submission.name.nil? %>
         </td>
         <td>
-          <%= submission.author_email.truncate(35) %>
+          <%= submission.email.truncate(35) %>
         </td>
         <td>
           <%= submission.content['body'].truncate(30) unless submission.content['body'].nil? %><br>
