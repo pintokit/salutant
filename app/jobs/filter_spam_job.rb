@@ -13,7 +13,7 @@ class FilterSpamJob < ApplicationJob
     if response.body == 'true'
       submission.update! filter_result: :spam
     elsif response.body == 'true' && response['X-akismet-pro-tip'] == 'discard'
-      submission.update! filter_result: :spam
+      submission.update! filter_result: :discard
     else
       submission.update! filter_result: :not_spam
     end
