@@ -5,6 +5,12 @@
     "postdeploy": "rake db:migrate; rake db:seed"
   },
   "env": {
+    "AKISMET_API_KEY": {
+      "required": true
+    },
+    "AKISMET_VERSION": {
+      "required": true
+    },
     "HEROKU_APP_NAME": {
       "required": true
     },
