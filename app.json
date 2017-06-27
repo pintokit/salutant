@@ -35,9 +35,6 @@
     "RAILS_SERVE_STATIC_FILES": {
       "required": true
     },
-    "RAKISMET_KEY": {
-      "required": true
-    },
     "SECRET_KEY_BASE": {
       "required": true
     }
