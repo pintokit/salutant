@@ -25,6 +25,7 @@ class SubmissionsController < ApplicationController
   def create
     respond_to do |format|
       if @did_save
+        FilterSpamJob.new(@submission, @http_headers).perform_now
         format.html { redirect_to @landing_page, notice: 'Submission was successfully created.' }
         format.json { render :show, status: :created, location: @submission }
       else
@@ -58,24 +59,24 @@ class SubmissionsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_submission
-      @submission = Submission.find(params[:id])
-    end
-
     def parse_submission
-      submission = Submission.new(submission_params)
-      @did_save = submission.save
-      @landing_page, http_headers = set_request_headers(request)
+      @submission = Submission.new(submission_params)
+      @did_save = @submission.save
 
-      FilterSpamJob.new(submission, http_headers).perform_now
+      @landing_page, @http_headers = set_request_headers(request)
+      @submission.update headers: @http_headers
     end
 
     def set_request_headers(request)
       # Collect all CGI-style HTTP_ headers except cookies for privacy..
       headers = request.env.select { |k,v| k =~ /^HTTP_/ }.reject { |k,v| ['HTTP_COOKIE','HTTP_SENSITIVE'].include? k }
-      landing_page = request.headers['Origin']
 
+      landing_page = request.headers['Origin']
       return landing_page, headers
+    end
+
+    def set_submission
+      @submission = Submission.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

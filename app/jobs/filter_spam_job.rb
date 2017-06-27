@@ -10,8 +10,6 @@ class FilterSpamJob < ApplicationJob
       raise_with_response response
     end
 
-    submission.update! headers: http_headers
-
     if response.body == 'true'
       submission.update! filter_result: :spam
     elsif response.body == 'true' && response['X-akismet-pro-tip'] == 'discard'
@@ -19,10 +17,9 @@ class FilterSpamJob < ApplicationJob
     else
       submission.update! filter_result: :not_spam
     end
-
   end
 
-  def perform(submission, request)
-    parse_submission(submission, request)
+  def perform(submission, http_headers)
+    parse_submission(submission, http_headers)
   end
 end
