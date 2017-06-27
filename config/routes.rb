@@ -1,5 +1,17 @@
 Rails.application.routes.draw do
-  root 'submissions#index'
+  devise_for :users
+
+  devise_scope :user do
+    get 'login', to: 'devise/sessions#new', as: :login
+
+    unauthenticated :user do
+      root :to => 'devise/sessions#new', as: :unauthenticated_root
+    end
+
+    authenticated :user do
+      root :to => 'submissions#index', as: :authenticated_root
+    end
+  end
+
   resources :submissions
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
