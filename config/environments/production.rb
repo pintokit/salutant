@@ -1,5 +1,11 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+
+  # Review apps will set domain name based on app name
+  if ENV['APP_DOMAIN'].nil?
+    ENV['APP_DOMAIN'] =  "#{ENV['HEROKU_APP_NAME']}.herokuapp.com"
+  end
+
   Rails.application.routes.default_url_options[:host] = ENV['APP_DOMAIN']
 
   # Code is not reloaded between requests.
@@ -96,10 +102,6 @@ Rails.application.configure do
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)
-  end
-
-  if ENV['APP_DOMAIN'].nil?
-    ENV['APP_DOMAIN'] =  "#{ENV['HEROKU_APP_NAME']}.herokuapp.com"
   end
 
   # Do not dump schema after migrations.
