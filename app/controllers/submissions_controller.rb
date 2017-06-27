@@ -70,7 +70,7 @@ class SubmissionsController < ApplicationController
 
     def request_submission_headers_from(request)
       # Collect all CGI-style HTTP_ headers except cookies for privacy..
-      headers = request.env.select { |k,v| k =~ /^HTTP_/ }.reject { |k,v| ['HTTP_COOKIE','HTTP_SENSITIVE'].include? k }
+      headers = request.env.select { |k,v| selected_headers.include? k }
 
       landing_page = request.headers['Origin']
       return landing_page, headers
@@ -92,6 +92,12 @@ class SubmissionsController < ApplicationController
       else
         @submission_updated_notice = 'Submission was successfully updated.'
       end
+    end
+
+    def selected_headers
+      headers = ['HTTP_VIA', 'HTTP_HOST', 'HTTP_ACCEPT', 'HTTP_REFERER', 'HTTP_VERSION', 'HTTP_CONNECTION', 'HTTP_USER_AGENT', 'HTTP_CONNECT_TIME', 'HTTP_X_REQUEST_ID', 'HTTP_ACCEPT_CHARSET', 'HTTP_ACCEPT_ENCODING', 'HTTP_ACCEPT_LANGUAGE', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_REQUEST_START', 'HTTP_TOTAL_ROUTE_TIME', 'HTTP_X_FORWARDED_PORT', 'HTTP_X_FORWARDED_PROTO', 'GATEWAY_INTERFACE', 'SERVER_ADDR', 'SERVER_NAME', 'SERVER_SOFTWARE', 'SERVER_PROTOCOL', 'QUERY_STRING', 'REMOTE_ADDR', 'REMOTE_HOST', 'REMOTE_PORT', 'REMOTE_USER', 'REDIRECT_REMOTE_USER', 'SERVER_ADMIN', 'SERVER_PORT', 'SERVER_SIGNATURE', 'REQUEST_URI']
+
+      return headers
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
