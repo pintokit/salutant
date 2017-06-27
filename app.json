@@ -5,6 +5,12 @@
     "postdeploy": "rake db:migrate; rake db:seed"
   },
   "env": {
+    "ADMIN_EMAIL": {
+      "required": true
+    },
+    "ADMIN_PASSWORD": {
+      "required": true
+    },
     "AKISMET_API_KEY": {
       "required": true
     },
