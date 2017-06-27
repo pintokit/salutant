@@ -37,4 +37,8 @@ class ApplicationJob < ActiveJob::Base
     return env['REMOTE_ADDR'], env['HTTP_USER_AGENT'], env['HTTP_REFERER']
   end
 
+  def raise_with_response(response)
+    raise Error, response['X-akismet-debug-help'] || 'Unknown error'
+  end
+
 end

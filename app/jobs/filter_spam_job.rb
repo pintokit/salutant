@@ -7,7 +7,7 @@ class FilterSpamJob < ApplicationJob
     response = invoke(submission, http_headers, method_name)
 
     unless %w{ true false }.include?(response.body)
-      raise Error, "#{ response.error }"
+      raise_with_response response
     end
 
     submission.update! headers: http_headers
