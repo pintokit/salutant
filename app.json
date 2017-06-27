@@ -17,6 +17,12 @@
     "AKISMET_VERSION": {
       "required": true
     },
+    "GMAIL_USERNAME": {
+      "required": true
+    },
+    "GMAIL_PASSWORD": {
+      "required": true
+    },
     "HEROKU_APP_NAME": {
       "required": true
     },

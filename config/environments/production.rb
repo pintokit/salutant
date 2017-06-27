@@ -1,6 +1,6 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  Rails.application.routes.default_url_options[:host] = ENV['APP_URL']
+  Rails.application.routes.default_url_options[:host] = ENV['APP_DOMAIN']
 
   # Code is not reloaded between requests.
   config.cache_classes = true
@@ -32,17 +32,17 @@ Rails.application.configure do
   config.action_mailer.default :charset => "utf-8"
 
   config.action_mailer.smtp_settings = {
-    address: 'smtp.sendgrid.net',
+    address: 'smtp.gmail.com',
     port: 587,
-    domain: ENV['APP_DOMAIN'],
+    domain: 'gmail.com',
     authentication: 'plain',
     enable_starttls_auto: true,
-    user_name: ENV['SENDGRID_USERNAME'],
-    password: ENV['SENDGRID_PASSWORD']
+    user_name: ENV['GMAIL_USERNAME'],
+    password: ENV['GMAIL_PASSWORD']
   }
   config.action_mailer.delivery_method = :smtp
   # Mailer host for env
-  config.action_mailer.default_url_options = {:host => ENV['APP_URL']}
+  config.action_mailer.default_url_options = {:host => ENV['APP_DOMAIN']}
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = 'http://assets.example.com'
