@@ -6,7 +6,7 @@ class SubmissionsController < ApplicationController
 
   # GET /submissions
   def index
-    @submissions = Submission.all
+    @submissions = Submission.all.order(:filter_result).reverse
   end
 
   # GET /submissions/1
