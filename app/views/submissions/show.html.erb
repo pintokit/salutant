@@ -7,17 +7,18 @@
 
 <p>
   <strong>Body:</strong>
-  <%= @submission.content[:body] %>
+  <%= @submission.content['body'] %>
 </p>
 
 <p>
   <strong>Phone:</strong>
-  <%= @submission.content[:phone] %>
+  <%= @submission.content['phone'] %>
+  <%= @submission[:filter_result] %>
 </p>
 
 
 <%= link_to 'Back to Submissions', submissions_path, class:'btn btn-block btn-default' %>
 
 <%= link_to edit_submission_path(@submission), class: 'btn btn-block btn-primary' do %>
-  <span class='glyphicon glyphicon-pencil'></span>
+  <span class="glyphicon glyphicon-pencil"></span>
 <% end %>

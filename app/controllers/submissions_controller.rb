@@ -1,6 +1,8 @@
 class SubmissionsController < ApplicationController
   allow_cors :create
+  before_action :parse_submission, only: :create
   before_action :set_submission, only: [:show, :edit, :update, :destroy]
+  before_action :configure_spam_filter, only: :update
 
   # GET /submissions
   def index
@@ -22,11 +24,9 @@ class SubmissionsController < ApplicationController
 
   # POST /submissions
   def create
-    @submission = Submission.new(submission_params)
-    @landing_page = request.headers['Origin']
-
     respond_to do |format|
-      if @submission.save
+      if @did_save
+        FilterSpamJob.new(@submission, @http_headers).perform_now
         format.html { redirect_to @landing_page, notice: 'Submission was successfully created.' }
         format.json { render :show, status: :created, location: @submission }
       else
@@ -40,7 +40,7 @@ class SubmissionsController < ApplicationController
   def update
     respond_to do |format|
       if @submission.update(submission_params)
-        format.html { redirect_to @submission, notice: 'Submission was successfully updated.' }
+        format.html { redirect_to @submission, notice: @submission_updated_notice }
         format.json { render :show, status: :ok, location: @submission }
       else
         format.html { render :edit }
@@ -60,12 +60,42 @@ class SubmissionsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def parse_submission
+      @submission = Submission.new(submission_params)
+      @did_save = @submission.save
+
+      @landing_page, @http_headers = request_submission_headers_from(request)
+      @submission.update headers: @http_headers
+    end
+
+    def request_submission_headers_from(request)
+      # Collect all CGI-style HTTP_ headers except cookies for privacy..
+      headers = request.env.select { |k,v| k =~ /^HTTP_/ }.reject { |k,v| ['HTTP_COOKIE','HTTP_SENSITIVE'].include? k }
+
+      landing_page = request.headers['Origin']
+      return landing_page, headers
+    end
+
     def set_submission
       @submission = Submission.find(params[:id])
     end
 
+    def configure_spam_filter
+      if params[:submission][:filter_result] != @submission.filter_result
+        if params[:submission][:filter_result] == 'spam'
+          SubmitSpamJob.new(@submission).perform_now
+          @submission_updated_notice = 'Spam successfully reported.'
+        elsif params[:submission][:filter_result] == 'not_spam'
+          SubmitHamJob.new(@submission).perform_now
+          @submission_updated_notice = 'False positives successfully reported.'
+        end
+      else
+        @submission_updated_notice = 'Submission was successfully updated.'
+      end
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def submission_params
-      params.require(:submission).permit(:name, :email, :content, :body, :phone)
+      params.require(:submission).permit(:name, :email, :content, :body, :phone, :filter_result)
     end
 end

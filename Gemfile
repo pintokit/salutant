@@ -25,6 +25,8 @@ gem 'uglifier'
 
 # Rails forms made easy
 gem 'simple_form'
+# This gem can help you work fine with Enum feather, I18n and simple_form
+gem 'enum_help'
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks'
