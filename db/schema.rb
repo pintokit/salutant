@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20170622181643) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "filter_result"
+    t.jsonb "headers"
   end
 
 end

@@ -65,10 +65,17 @@ class SubmissionsController < ApplicationController
     def parse_submission
       submission = Submission.new(submission_params)
       @did_save = submission.save
-      @landing_page = request.headers['Origin']
+      @landing_page, http_headers = set_request_headers(request)
 
-      SubmissionFilterJob.new(submission, request).perform_now
+      FilterSpamJob.new(submission, http_headers).perform_now
+    end
 
+    def set_request_headers(request)
+      # Collect all CGI-style HTTP_ headers except cookies for privacy..
+      headers = request.env.select { |k,v| k =~ /^HTTP_/ }.reject { |k,v| ['HTTP_COOKIE','HTTP_SENSITIVE'].include? k }
+      landing_page = request.headers['Origin']
+
+      return landing_page, headers
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
