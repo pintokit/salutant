@@ -1,6 +1,6 @@
 class SubmissionsController < ApplicationController
-  allow_cors :create
-  before_action :parse_submission, only: :create
+  skip_before_action :verify_authenticity_token, only: :create
+  before_action :cors_check, only: :create
   before_action :set_submission, only: [:show, :edit, :update, :destroy]
   before_action :configure_spam_filter, only: :update
 
@@ -60,6 +60,18 @@ class SubmissionsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def allowed(request)
+      request.headers['Origin'] == 'http://davidsolis.me' || request.headers['Origin'] == 'http://www.davidmazza.com' || request.local?
+    end
+
+    def cors_check
+      if allowed(request)
+        parse_submission
+      else
+        redirect_to unauthenticated_root_path
+      end
+    end
+
     def parse_submission
       @submission = Submission.new(submission_params)
       @did_save = @submission.save
