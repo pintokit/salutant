@@ -3,6 +3,7 @@
 <table class="table table-hover">
   <thead>
     <tr>
+      <th>Sent To</th>
       <th>Name</th>
       <th>Email</th>
       <th>Message</th>
@@ -14,6 +15,9 @@
   <tbody>
     <% @submissions.each do |submission| %>
       <tr>
+        <td>
+          <%= submission.content['sent_to'] %>
+        </td>
         <td>
           <%= submission.name.truncate(25) unless submission.name.nil? %>
         </td>
@@ -27,7 +31,7 @@
         <td>
           <%= submission[:filter_result].titlecase unless submission[:filter_result].nil? %>
         </td>
-        <td class="danger">
+        <td>
           <%= link_to submission_path(submission), class: 'btn btn-default' do %>
             <span class="glyphicon glyphicon-info-sign"></span>
           <% end %>
