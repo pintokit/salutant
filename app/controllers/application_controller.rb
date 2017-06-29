@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!, except: :create
   # Prevent CSRF attacks by raising an exception.
-  protect_from_forgery with: :exception, except: :create
+  protect_from_forgery with: :exception
 
   def self.allow_cors(*actions)
     before_action :cors_filter, only: :actions
