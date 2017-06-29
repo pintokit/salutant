@@ -68,15 +68,15 @@ class SubmissionsController < ApplicationController
       if allowed(request)
         parse_submission
       else
-        redirect_to unauthenticated_root_path
+        render :json => "404 Not Found", :status => 404
       end
     end
 
     def parse_submission
       @submission = Submission.new(submission_params)
+      @landing_page, @http_headers = request_submission_headers_from(request)
       @did_save = @submission.save
 
-      @landing_page, @http_headers = request_submission_headers_from(request)
       @submission.update headers: @http_headers
     end
 
