@@ -28,6 +28,9 @@ gem 'simple_form'
 # This gem can help you work fine with Enum feather, I18n and simple_form
 gem 'enum_help'
 
+# Use Devise as authentication database
+gem 'devise'
+
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks'
 # Instrument your Ruby App and send the data to the Skylight servers
@@ -42,6 +45,8 @@ group :development, :test do
   gem 'dotenv-rails'
   # Setup favicon icons
   gem 'rails_real_favicon'
+  # Preview mail in the browser instead of sending.
+  gem 'letter_opener'
 end
 
 group :development do

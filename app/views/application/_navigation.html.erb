@@ -13,11 +13,13 @@
     </div>
     <div class="collapse navbar-collapse" id="navbar-collapse-6">
       <ul class="nav navbar-nav">
-         <!-- if user_signed_in?
-          <li>LOGGED IN NAVBAR VIEW</li>
-         else
-            <li>LOGGED OUT NAVBAR VIEW</li>
-         end -->
+        <% if user_signed_in? %>
+          <li><%= link_to current_user.email, edit_user_registration_path %></li>
+          <li><%= link_to 'Inbox', authenticated_root_path %></li>
+          <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+        <% else %>
+            <li><%= link_to "Login", new_user_session_path %></li>
+        <% end %>
       </ul>
     </div>
   </div>

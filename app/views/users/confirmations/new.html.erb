@@ -1,0 +1,17 @@
+<% heading 'Resend confirmation instructions' %>
+
+<%= simple_form_for(@user, url: confirmation_path(@user), html: { method: :post }) do |f| %>
+  <%= f.error_notification %>
+  <%= f.full_error :confirmation_token %>
+
+  <div class="form-inputs">
+    <%= f.input :email, required: true, autofocus: true %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Resend confirmation instructions" %>
+  </div>
+<% end %>
+
+<br>
+<%= link_to "Forgot your password?", new_password_path(@user) %>

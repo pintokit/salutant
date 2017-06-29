@@ -5,10 +5,22 @@
     "postdeploy": "rake db:migrate; rake db:seed"
   },
   "env": {
+    "ADMIN_EMAIL": {
+      "required": true
+    },
+    "ADMIN_PASSWORD": {
+      "required": true
+    },
     "AKISMET_API_KEY": {
       "required": true
     },
     "AKISMET_VERSION": {
+      "required": true
+    },
+    "GMAIL_USERNAME": {
+      "required": true
+    },
+    "GMAIL_PASSWORD": {
       "required": true
     },
     "HEROKU_APP_NAME": {
@@ -29,7 +41,7 @@
     "RAILS_SERVE_STATIC_FILES": {
       "required": true
     },
-    "RAKISMET_KEY": {
+    "REPLY_TO": {
       "required": true
     },
     "SECRET_KEY_BASE": {
