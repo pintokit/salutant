@@ -6,6 +6,7 @@
       <th>Name</th>
       <th>Email</th>
       <th>Message</th>
+      <th>Filter Result</th>
       <th colspan="2"></th>
     </tr>
   </thead>
@@ -24,7 +25,7 @@
           <%= submission.content['phone'].truncate(15) unless submission.content['phone'].nil? %>
         </td>
         <td>
-          <%= submission[:filter_result] %>
+          <%= submission[:filter_result].titlecase unless submission[:filter_result].nil? %>
         </td>
         <td class="danger">
           <%= link_to submission_path(submission), class: 'btn btn-default' do %>
