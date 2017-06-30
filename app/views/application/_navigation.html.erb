@@ -1,26 +1,19 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-6" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-       <!-- link_to root_url do
-        image_tag 'logo.png', class:'navbar-brand'
-       end -->
-    </div>
-    <div class="collapse navbar-collapse" id="navbar-collapse-6">
-      <ul class="nav navbar-nav">
-        <% if user_signed_in? %>
-          <li><%= link_to current_user.email, edit_user_registration_path %></li>
-          <li><%= link_to 'Inbox', authenticated_root_path %></li>
-          <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
-        <% else %>
-            <li><%= link_to "Login", new_user_session_path %></li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-</nav>
+<div data-example-id="simple-nav-tabs">
+  <ul class="nav nav-tabs">
+    <% if user_signed_in? %>
+      <li role="presentation">
+        <%= link_to current_user.email, edit_user_registration_path %>
+      </li>
+      <li role="presentation">
+        <%= link_to 'Inbox', authenticated_root_path %>
+      </li>
+      <li role="presentation">
+        <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+      </li>
+    <% else %>
+        <li role="presentation">
+          <%= link_to "Login", new_user_session_path %>
+        </li>
+    <% end %>
+  </ul>
+</div>

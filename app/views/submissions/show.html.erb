@@ -13,9 +13,12 @@
 <p>
   <strong>Phone:</strong>
   <%= @submission.content['phone'] %>
-  <%= @submission[:filter_result] %>
 </p>
 
+<p>
+  <strong>Filter Result:</strong>
+  <%= @submission[:filter_result].titlecase unless @submission[:filter_result].nil? %>
+</p>
 
 <%= link_to 'Back', submissions_path, class:'btn btn-block btn-default' %>
 
