@@ -1,35 +1,33 @@
-<% heading "#{@submission.name.truncate(25) unless @submission.name.nil?}" %>
+<% heading "#{@submission.name.truncate(25) unless @submission.name.blank?}" %>
+<% heading "No Name" if @submission.name.blank? %>
 
 <dl>
   <dt>
-    Email
+    <h3>Email</h3>
   </dt>
   <dd>
     <%= @submission.email %>
   </dd>
 
-  <br>
   <dt>
-    Phone
+    <h3>Phone</h3>
   </dt>
   <dd>
     <%= @submission.content['phone'] %>
   </dd>
 
-  <br>
   <dt>
-    Body
+    <h3>Body</h3>
   </dt>
   <dd>
     <%= @submission.content['body'] %>
   </dd>
 
-  <br>
   <dt>
-    Filter
+    <h3>Filter</h3>
   </dt>
   <dd>
-    <%= @submission[:filter_result].titlecase unless @submission[:filter_result].nil? %>
+    <%= @submission[:filter_result].titlecase unless @submission[:filter_result].blank? %>
   </dd>
 <dl>
 <br>
