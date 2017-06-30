@@ -3,11 +3,11 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th>Sent To</th>
+      <th class="hidden-xs">Sent To</th>
       <th>Name</th>
       <th>Email</th>
       <th>Message</th>
-      <th>Filter Result</th>
+      <th class="hidden-xs">Filter Result</th>
       <th colspan="2"></th>
     </tr>
   </thead>
@@ -21,20 +21,20 @@
       <% else %>
         <tr>
       <% end %>
-          <td>
+          <td class="hidden-xs">
             <%= submission.content['sent_to'] %>
           </td>
           <td>
-            <%= submission.name.truncate(25) unless submission.name.nil? %>
+            <%= submission.name.truncate(10) unless submission.name.nil? %>
           </td>
           <td>
-            <%= submission.email.truncate(35) %>
+            <%= submission.email.truncate(15) %>
           </td>
           <td>
-            <%= submission.content['body'].truncate(30) unless submission.content['body'].nil? %><br>
+            <%= submission.content['body'].truncate(15) unless submission.content['body'].nil? %><br>
             <%= submission.content['phone'].truncate(15) unless submission.content['phone'].nil? %>
           </td>
-          <td>
+          <td class="hidden-xs">
             <%= submission[:filter_result].titlecase unless submission[:filter_result].nil? %>
           </td>
           <td>
