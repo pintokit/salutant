@@ -1,24 +1,38 @@
-<% heading "#{@submission.name}" %>
+<% heading "#{@submission.name.truncate(25) unless @submission.name.nil?}" %>
 
-<p>
-  <strong>Email:</strong>
-  <%= @submission.email %>
-</p>
+<dl>
+  <dt>
+    Email
+  </dt>
+  <dd>
+    <%= @submission.email %>
+  </dd>
 
-<p>
-  <strong>Body:</strong>
-  <%= @submission.content['body'] %>
-</p>
+  <br>
+  <dt>
+    Phone
+  </dt>
+  <dd>
+    <%= @submission.content['phone'] %>
+  </dd>
 
-<p>
-  <strong>Phone:</strong>
-  <%= @submission.content['phone'] %>
-</p>
+  <br>
+  <dt>
+    Body
+  </dt>
+  <dd>
+    <%= @submission.content['body'] %>
+  </dd>
 
-<p>
-  <strong>Filter Result:</strong>
-  <%= @submission[:filter_result].titlecase unless @submission[:filter_result].nil? %>
-</p>
+  <br>
+  <dt>
+    Filter
+  </dt>
+  <dd>
+    <%= @submission[:filter_result].titlecase unless @submission[:filter_result].nil? %>
+  </dd>
+<dl>
+<br>
 
 <%= link_to 'Back', submissions_path, class:'btn btn-block btn-default' %>
 
