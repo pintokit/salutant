@@ -14,29 +14,35 @@
 
   <tbody>
     <% @submissions.each do |submission| %>
-      <tr>
-        <td>
-          <%= submission.content['sent_to'] %>
-        </td>
-        <td>
-          <%= submission.name.truncate(25) unless submission.name.nil? %>
-        </td>
-        <td>
-          <%= submission.email.truncate(35) %>
-        </td>
-        <td>
-          <%= submission.content['body'].truncate(30) unless submission.content['body'].nil? %><br>
-          <%= submission.content['phone'].truncate(15) unless submission.content['phone'].nil? %>
-        </td>
-        <td>
-          <%= submission[:filter_result].titlecase unless submission[:filter_result].nil? %>
-        </td>
-        <td>
-          <%= link_to submission_path(submission), class: 'btn btn-default' do %>
-            <span class="glyphicon glyphicon-info-sign"></span>
-          <% end %>
-        </td>
-      </tr>
+      <% if submission[:filter_result] == 'discard' %>
+        <tr class="danger">
+      <% elsif submission[:filter_result] == 'spam' %>
+        <tr class="warning">
+      <% else %>
+        <tr>
+      <% end %>
+          <td>
+            <%= submission.content['sent_to'] %>
+          </td>
+          <td>
+            <%= submission.name.truncate(25) unless submission.name.nil? %>
+          </td>
+          <td>
+            <%= submission.email.truncate(35) %>
+          </td>
+          <td>
+            <%= submission.content['body'].truncate(30) unless submission.content['body'].nil? %><br>
+            <%= submission.content['phone'].truncate(15) unless submission.content['phone'].nil? %>
+          </td>
+          <td>
+            <%= submission[:filter_result].titlecase unless submission[:filter_result].nil? %>
+          </td>
+          <td>
+            <%= link_to submission_path(submission), class: 'btn btn-default' do %>
+              <span class="glyphicon glyphicon-info-sign"></span>
+            <% end %>
+          </td>
+        </tr>
     <% end %>
   </tbody>
 </table>

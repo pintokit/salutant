@@ -72,11 +72,23 @@ class SubmissionsController < ApplicationController
       end
     end
 
+    def addressed_to(request)
+      case request.headers['Origin']
+      when 'http://davidsolis.me'
+        return :solis
+      when 'http://www.davidmazza.com'
+        return :mazza
+      when 'http://localhost:5000'
+        return :solis
+      end
+    end
+
     def parse_submission
       @submission = Submission.new(submission_params)
       @landing_page, @http_headers = request_submission_headers_from(request)
       @did_save = @submission.save
 
+      @submission.update sent_to: addressed_to(request)
       @submission.update headers: @http_headers
     end
 
