@@ -64,7 +64,7 @@ class SubmissionsController < ApplicationController
       case request.headers['Origin']
       when 'http://davidsolis.me' || 'http://www.davidmazza.com'
         return true
-      when 'https://salutant.herokuapp.com' || 'http://salutant.soliskit.com'
+      when 'https://salutant.herokuapp.com' || 'http://soliskit.com'
         return true
       when request.local?
         return true
