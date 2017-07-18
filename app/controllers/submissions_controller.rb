@@ -61,7 +61,7 @@ class SubmissionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def allowed(request)
-      request.headers['Origin'] == 'http://davidsolis.me' || request.headers['Origin'] == 'http://www.davidmazza.com' || request.local?
+      request.headers['Origin'] == 'http://davidsolis.me' || request.headers['Origin'] == 'http://www.davidmazza.com' || request.headers['Origin'] == "http://#{ENV['APP_DOMAIN']}" || request.local?
     end
 
     def cors_check
