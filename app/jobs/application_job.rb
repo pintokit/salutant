@@ -30,7 +30,7 @@ class ApplicationJob < ActiveJob::Base
   end
 
   def app_url
-    "http://#{ENV['APP_DOMAIN']}"
+    "https://#{ENV['APP_DOMAIN']}"
   end
 
   def retrieve_request(env)
