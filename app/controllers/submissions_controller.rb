@@ -74,6 +74,8 @@ class SubmissionsController < ApplicationController
         return true
       when request.local?
         return true
+      when nil
+        return false
       end
     end
 
