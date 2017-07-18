@@ -62,11 +62,15 @@ class SubmissionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def allowed(request)
       case request.headers['Origin']
-      when 'http://davidsolis.me' || 'http://www.davidmazza.com'
+      when 'http://davidsolis.me'
+        return true
+      when 'http://www.davidmazza.com'
         return true
       when 'https://salutant.herokuapp.com'
         return true
-      when 'http://notes.soliskit.com' || 'http://salutant.soliskit.com'
+      when 'http://notes.soliskit.com'
+        return true
+      when 'http://salutant.soliskit.com'
         return true
       when request.local?
         return true
@@ -87,8 +91,10 @@ class SubmissionsController < ApplicationController
         return :solis
       when 'http://www.davidmazza.com'
         return :mazza
+      when 'http://notes.soliskit.com'
+        return :peaking
       when request.local?
-        return :solis
+        return :peaking
       end
     end
 
