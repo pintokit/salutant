@@ -99,7 +99,6 @@ class SubmissionsController < ApplicationController
 
       @submission.update sent_to: addressed_to(request) # Addressed to
       @submission.update headers: @http_headers # Message headers
-      @submission.update filter_result: :not_spam # Defaults to not spam
     end
 
     def request_submission_headers_from(request)
