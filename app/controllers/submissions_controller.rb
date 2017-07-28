@@ -103,7 +103,9 @@ class SubmissionsController < ApplicationController
     def parse_submission
       @submission = Submission.new(submission_params)
       @landing_page, @http_headers = request_submission_headers_from(request)
-      @did_save = @submission.save
+      unless @landing_page.nil?
+        @did_save = @submission.save
+      end
 
       @submission.update sent_to: addressed_to(request) # Addressed to
       @submission.update headers: @http_headers # Message headers
