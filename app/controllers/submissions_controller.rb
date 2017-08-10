@@ -66,8 +66,6 @@ class SubmissionsController < ApplicationController
         return true
       when 'http://www.davidmazza.com'
         return true
-      when 'https://salutant.herokuapp.com'
-        return true
       when 'http://notes.soliskit.com'
         return true
       when ENV['APP_DOMAIN']
