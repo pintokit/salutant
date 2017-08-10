@@ -72,7 +72,7 @@ class SubmissionsController < ApplicationController
         return true
       when 'http://salutant.soliskit.com'
         return true
-      when request.local?
+      when 'http://localhost:5000'
         return true
       when nil
         return false
