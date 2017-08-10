@@ -75,10 +75,10 @@ class SubmissionsController < ApplicationController
       # when nil
       #   return true
       # end
-      case request.headers['Origin']
-      when nil
+      # case request.headers['ORIGIN']
+      # when nil
         return true
-      end
+      # end
     end
 
     def cors_check
@@ -90,7 +90,7 @@ class SubmissionsController < ApplicationController
     end
 
     def addressed_to(request)
-      case request.headers['Origin']
+      case request.headers['ORIGIN']
       when 'http://davidsolis.me'
         return :solis
       when 'http://www.davidmazza.com'
@@ -119,7 +119,7 @@ class SubmissionsController < ApplicationController
       # Collect all CGI-style HTTP_ headers except cookies for privacy..
       headers = request.env.select { |k,v| selected_headers.include? k }
 
-      landing_page = request.headers['Origin']
+      landing_page = request.headers['ORIGIN']
       return landing_page, headers
     end
 
