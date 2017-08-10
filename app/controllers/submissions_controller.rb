@@ -61,20 +61,20 @@ class SubmissionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def allowed(request)
-      # case request.headers['HTTP_REFERER']
-      # when 'http://davidsolis.me'
-      #   return true
-      # when 'http://www.davidmazza.com'
-      #   return true
-      # when 'http://notes.soliskit.com'
-      #   return true
-      # when "#{ENV['APP_DOMAIN']}/submissions/new"
-      #   return true
-      # when 'http://localhost:5000/submissions/new'
-      #   return true
-      # when nil
+      case request.headers['HTTP_REFERER']
+      when 'http://davidsolis.me'
         return true
-      # end
+      when 'http://www.davidmazza.com'
+        return true
+      when 'http://notes.soliskit.com'
+        return true
+      when 'https://salutant-pr-13.herokuapp.com/submissions/new'
+        return true
+      when 'http://localhost:5000/submissions/new'
+        return true
+      when nil
+        return true
+      end
     end
 
     def cors_check
@@ -93,7 +93,7 @@ class SubmissionsController < ApplicationController
         return :mazza
       when 'http://notes.soliskit.com'
         return :peaking
-      when "https://#{ENV['APP_DOMAIN']}/submissions/new"
+      when 'https://salutant-pr-13.herokuapp.com/submissions/new'
         return :dev
       when 'http://localhost:5000/submissions/new'
         return :dev
