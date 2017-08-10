@@ -70,7 +70,7 @@ class SubmissionsController < ApplicationController
         return true
       when 'http://notes.soliskit.com'
         return true
-      when 'http://salutant.soliskit.com'
+      when ENV['APP_DOMAIN']
         return true
       when 'http://localhost:5000'
         return true
@@ -95,17 +95,19 @@ class SubmissionsController < ApplicationController
         return :mazza
       when 'http://notes.soliskit.com'
         return :peaking
+      when ENV['APP_DOMAIN']
+        return :dev
       when 'http://localhost:5000'
-        return :peaking
+        return :dev
       end
     end
 
     def parse_submission
       @submission = Submission.new(submission_params)
       @landing_page, @http_headers = request_submission_headers_from(request)
-      unless @landing_page.nil?
+      # unless @landing_page.nil?
         @did_save = @submission.save
-      end
+      # end
 
       @submission.update sent_to: addressed_to(request) # Addressed to
       @submission.update headers: @http_headers # Message headers
