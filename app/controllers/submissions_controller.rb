@@ -73,7 +73,7 @@ class SubmissionsController < ApplicationController
       when 'http://localhost:5000'
         return true
       when nil
-        return false
+        return true
       end
     end
 
