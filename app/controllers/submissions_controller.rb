@@ -75,7 +75,10 @@ class SubmissionsController < ApplicationController
       # when nil
       #   return true
       # end
-      return true
+      case request.headers['Origin']
+      when nil
+        return true
+      end
     end
 
     def cors_check
