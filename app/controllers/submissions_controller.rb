@@ -61,20 +61,18 @@ class SubmissionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def allowed(request)
-      case request.headers['Origin']
+      case request.headers['ORIGIN']
       when 'http://davidsolis.me'
         return true
       when 'http://www.davidmazza.com'
         return true
-      when 'https://salutant.herokuapp.com'
-        return true
       when 'http://notes.soliskit.com'
         return true
-      when 'http://salutant.soliskit.com'
+      when "https://#{ENV['APP_DOMAIN']}"
         return true
-      when request.local?
+      when 'http://localhost:5000'
         return true
-      when nil
+      else
         return false
       end
     end
@@ -88,24 +86,24 @@ class SubmissionsController < ApplicationController
     end
 
     def addressed_to(request)
-      case request.headers['Origin']
-      when 'http://davidsolis.me'
+      case request.headers['HTTP_REFERER']
+      when 'http://davidsolis.me/'
         return :solis
-      when 'http://www.davidmazza.com'
+      when 'http://www.davidmazza.com/'
         return :mazza
-      when 'http://notes.soliskit.com'
+      when 'http://notes.soliskit.com/'
         return :peaking
-      when request.local?
-        return :peaking
+      when "https://#{ENV['APP_DOMAIN']}/submissions/new"
+        return :dev
+      when 'http://localhost:5000/submissions/new'
+        return :dev
       end
     end
 
     def parse_submission
       @submission = Submission.new(submission_params)
       @landing_page, @http_headers = request_submission_headers_from(request)
-      unless @landing_page.nil?
-        @did_save = @submission.save
-      end
+      @did_save = @submission.save
 
       @submission.update sent_to: addressed_to(request) # Addressed to
       @submission.update headers: @http_headers # Message headers
@@ -115,7 +113,7 @@ class SubmissionsController < ApplicationController
       # Collect all CGI-style HTTP_ headers except cookies for privacy..
       headers = request.env.select { |k,v| selected_headers.include? k }
 
-      landing_page = request.headers['Origin']
+      landing_page = request.headers['HTTP_REFERER']
       return landing_page, headers
     end
 

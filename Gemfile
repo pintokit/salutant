@@ -37,8 +37,9 @@ gem 'turbolinks'
 gem 'skylight'
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platform: :mri
+  # Better Errors replaces the standard Rails error page with a much better and more useful error page
+  gem 'better_errors'
+  gem 'binding_of_caller'
   # Testing framework for Rails 5.x
   gem 'rspec-rails'
   # Access .env file before starting app

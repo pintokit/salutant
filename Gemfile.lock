@@ -49,15 +49,22 @@ GEM
     autoprefixer-rails (7.1.1.2)
       execjs
     bcrypt (3.1.11)
+    better_errors (2.3.0)
+      coderay (>= 1.0.0)
+      erubi (>= 1.0.0)
+      rack (>= 0.9.0)
     bindex (0.5.0)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
     builder (3.2.3)
-    byebug (9.0.6)
     case_transform (0.2)
       activesupport
+    coderay (1.1.1)
     concurrent-ruby (1.0.5)
+    debug_inspector (0.0.3)
     devise (4.3.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -230,8 +237,9 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  better_errors
+  binding_of_caller
   bootstrap-sass
-  byebug
   devise
   dotenv-rails
   enum_help
@@ -258,4 +266,4 @@ RUBY VERSION
    ruby 2.4.0p0
 
 BUNDLED WITH
-   1.15.1
+   1.15.3
