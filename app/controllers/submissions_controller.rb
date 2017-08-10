@@ -95,7 +95,7 @@ class SubmissionsController < ApplicationController
         return :mazza
       when 'http://notes.soliskit.com'
         return :peaking
-      when request.local?
+      when 'http://localhost:5000'
         return :peaking
       end
     end
