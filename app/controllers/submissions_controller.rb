@@ -26,7 +26,6 @@ class SubmissionsController < ApplicationController
   def create
     respond_to do |format|
       if @did_save
-        # FilterSpamJob.new(@submission, @http_headers).perform_now
         format.html { redirect_to @landing_page, notice: 'Submission was successfully created.' }
         format.json { render :show, status: :created, location: @submission }
       else
@@ -61,6 +60,7 @@ class SubmissionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def allowed(request)
+      # Check origin header from incoming request
       case request.headers['ORIGIN']
       when 'http://davidsolis.me'
         return true
@@ -110,7 +110,7 @@ class SubmissionsController < ApplicationController
     end
 
     def request_submission_headers_from(request)
-      # Collect all CGI-style HTTP_ headers except cookies for privacy..
+      # Collect all CGI-style HTTP headers except cookies for privacy
       headers = request.env.select { |k,v| selected_headers.include? k }
 
       landing_page = request.headers['HTTP_REFERER']
