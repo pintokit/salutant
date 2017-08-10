@@ -68,7 +68,7 @@ class SubmissionsController < ApplicationController
         return true
       when 'http://notes.soliskit.com'
         return true
-      when 'https://salutant-pr-13.herokuapp.com/submissions/new'
+      when "https://#{ENV['APP_DOMAIN']}/submissions/new"
         return true
       when 'http://localhost:5000/submissions/new'
         return true
@@ -93,7 +93,7 @@ class SubmissionsController < ApplicationController
         return :mazza
       when 'http://notes.soliskit.com'
         return :peaking
-      when 'https://salutant-pr-13.herokuapp.com/submissions/new'
+      when "https://#{ENV['APP_DOMAIN']}/submissions/new"
         return :dev
       when 'http://localhost:5000/submissions/new'
         return :dev
