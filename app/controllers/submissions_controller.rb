@@ -61,24 +61,25 @@ class SubmissionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def allowed(request)
-      case request.headers['Origin']
-      when 'http://davidsolis.me'
-        return true
-      when 'http://www.davidmazza.com'
-        return true
-      when 'http://notes.soliskit.com'
-        return true
-      when ENV['APP_DOMAIN']
-        return true
-      when 'http://localhost:5000'
-        return true
-      when nil
-        return true
-      end
+      # case request.headers['Origin']
+      # when 'http://davidsolis.me'
+      #   return true
+      # when 'http://www.davidmazza.com'
+      #   return true
+      # when 'http://notes.soliskit.com'
+      #   return true
+      # when ENV['APP_DOMAIN']
+      #   return true
+      # when 'http://localhost:5000'
+      #   return true
+      # when nil
+      #   return true
+      # end
+      return true
     end
 
     def cors_check
-      if true
+      if allowed(request)
         parse_submission
       else
         render :json => "404 Not Found", :status => 404
