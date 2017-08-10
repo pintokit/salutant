@@ -61,18 +61,18 @@ class SubmissionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def allowed(request)
-      case request.headers['HTTP_REFERER']
+      case request.headers['ORIGIN']
       when 'http://davidsolis.me'
         return true
       when 'http://www.davidmazza.com'
         return true
       when 'http://notes.soliskit.com'
         return true
-      when "https://#{ENV['APP_DOMAIN']}/submissions/new"
+      when "https://#{ENV['APP_DOMAIN']}"
         return true
-      when 'http://localhost:5000/submissions/new'
+      when 'http://localhost:5000'
         return true
-      when nil
+      else
         return true
       end
     end
