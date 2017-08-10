@@ -87,11 +87,11 @@ class SubmissionsController < ApplicationController
 
     def addressed_to(request)
       case request.headers['HTTP_REFERER']
-      when 'http://davidsolis.me'
+      when 'http://davidsolis.me/'
         return :solis
-      when 'http://www.davidmazza.com'
+      when 'http://www.davidmazza.com/'
         return :mazza
-      when 'http://notes.soliskit.com'
+      when 'http://notes.soliskit.com/'
         return :peaking
       when "https://#{ENV['APP_DOMAIN']}/submissions/new"
         return :dev
