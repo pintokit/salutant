@@ -78,7 +78,7 @@ class SubmissionsController < ApplicationController
     end
 
     def cors_check
-      if allowed(request)
+      if true
         parse_submission
       else
         render :json => "404 Not Found", :status => 404
