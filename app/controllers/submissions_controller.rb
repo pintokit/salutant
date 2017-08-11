@@ -11,6 +11,7 @@ class SubmissionsController < ApplicationController
 
   # GET /submissions/1
   def show
+    @submission.update is_unread: false
   end
 
   # GET /submissions/new
