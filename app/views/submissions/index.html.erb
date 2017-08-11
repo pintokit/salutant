@@ -13,7 +13,11 @@
 
   <tbody>
     <% @submissions.each do |submission| %>
-      <tr>
+      <% if submission.is_unread == true %>
+        <tr class="info">
+      <% else %>
+        <tr>
+      <% end %>
         <td class="hidden-xs">
           <%= submission.content['sent_to'] %>
         </td>
