@@ -11,12 +11,6 @@
     "ADMIN_PASSWORD": {
       "required": true
     },
-    "AKISMET_API_KEY": {
-      "required": true
-    },
-    "AKISMET_VERSION": {
-      "required": true
-    },
     "GMAIL_USERNAME": {
       "required": true
     },
