@@ -2,7 +2,6 @@ class SubmissionsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: :create
   before_action :cors_check, only: :create
   before_action :set_submission, only: [:show, :edit, :update, :destroy]
-  before_action :configure_spam_filter, only: :update
 
   # GET /submissions
   def index
@@ -69,26 +68,6 @@ class SubmissionsController < ApplicationController
       end
     end
 
-    def allowed(request)
-      # Check origin header from incoming request
-      case request.headers['ORIGIN']
-      when 'http://davidsolis.me'
-        return true
-      when 'http://www.davidmazza.com'
-        return true
-      when 'http://notes.soliskit.com'
-        return true
-      when 'http://peaking.co'
-        return true
-      when "https://#{ENV['APP_DOMAIN']}"
-        return true
-      when 'http://localhost:5000'
-        return true
-      else
-        return false
-      end
-    end
-
     def parse_submission
       @submission = Submission.new(submission_params)
       @landing_page, @http_headers = request_submission_headers_from(request)
@@ -108,6 +87,26 @@ class SubmissionsController < ApplicationController
 
     def set_submission
       @submission = Submission.find(params[:id])
+    end
+
+    def allowed(request)
+      # Check origin header from incoming request
+      case request.headers['ORIGIN']
+      when 'http://davidsolis.me'
+        return true
+      when 'http://www.davidmazza.com'
+        return true
+      when 'http://notes.soliskit.com'
+        return true
+      when 'http://peaking.co'
+        return true
+      when "https://#{ENV['APP_DOMAIN']}"
+        return true
+      when 'http://localhost:5000'
+        return true
+      else
+        return false
+      end
     end
 
     def addressed_to(request)
