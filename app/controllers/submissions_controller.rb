@@ -61,6 +61,14 @@ class SubmissionsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def cors_check
+      if allowed(request)
+        parse_submission
+      else
+        render :json => "404 Not Found", :status => 404
+      end
+    end
+
     def allowed(request)
       # Check origin header from incoming request
       case request.headers['ORIGIN']
@@ -70,35 +78,14 @@ class SubmissionsController < ApplicationController
         return true
       when 'http://notes.soliskit.com'
         return true
+      when 'http://peaking.co'
+        return true
       when "https://#{ENV['APP_DOMAIN']}"
         return true
       when 'http://localhost:5000'
         return true
       else
         return false
-      end
-    end
-
-    def cors_check
-      if allowed(request)
-        parse_submission
-      else
-        render :json => "404 Not Found", :status => 404
-      end
-    end
-
-    def addressed_to(request)
-      case request.headers['HTTP_REFERER']
-      when 'http://davidsolis.me/'
-        return :solis
-      when 'http://www.davidmazza.com/'
-        return :mazza
-      when 'http://notes.soliskit.com/'
-        return :peaking
-      when "https://#{ENV['APP_DOMAIN']}/submissions/new"
-        return :dev
-      when 'http://localhost:5000/submissions/new'
-        return :dev
       end
     end
 
@@ -123,17 +110,20 @@ class SubmissionsController < ApplicationController
       @submission = Submission.find(params[:id])
     end
 
-    def configure_spam_filter
-      if params[:submission][:filter_result] != @submission.filter_result
-        if params[:submission][:filter_result] == 'spam'
-          SubmitSpamJob.new(@submission).perform_now
-          @submission_updated_notice = 'Spam successfully reported.'
-        elsif params[:submission][:filter_result] == 'not_spam'
-          SubmitHamJob.new(@submission).perform_now
-          @submission_updated_notice = 'False positives successfully reported.'
-        end
-      else
-        @submission_updated_notice = 'Submission was successfully updated.'
+    def addressed_to(request)
+      case request.headers['HTTP_REFERER']
+      when 'http://davidsolis.me/'
+        return :solis
+      when 'http://www.davidmazza.com/'
+        return :mazza
+      when 'http://notes.soliskit.com/'
+        return :peaking
+      when 'http://peaking.co/'
+        return :peaking
+      when "https://#{ENV['APP_DOMAIN']}/submissions/new"
+        return :dev
+      when 'http://localhost:5000/submissions/new'
+        return :dev
       end
     end
 
