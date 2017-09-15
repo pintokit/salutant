@@ -7,18 +7,18 @@ class ApplicationMailer < ActionMailer::Base
 
     if @submission.content['sent_to'] == :mazza
       @addressed_to = "David Mazza <hello@peaking.co>"
+      @subject = "Message On davidmazza.com"
     else
       @addressed_to = "David Solis <hola@peaking.co>"
+      @subject = "Message On davidsolis.me"
     end
 
     if @submission.name.blank?
-      @name = "Name Not Provided"
       @email = @submission.email
     else
-      @name = @submission.name
-      @email = %("#{@name}" <#{@submission.email}>)
+      @email = %("#{@submission.name}" <#{@submission.email}>)
     end
 
-    mail from: @email, reply_to: @email, to: @addressed_to, subject: "New Email From #{@name}", body: @submission.content['body']
+    mail from: @email, reply_to: @email, to: @addressed_to, subject: @subject, body: @submission.content['body']
   end
 end
