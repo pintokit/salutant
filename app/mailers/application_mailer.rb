@@ -19,6 +19,6 @@ class ApplicationMailer < ActionMailer::Base
       @email = %("#{@name}" <#{@submission.email}>)
     end
 
-    mail from: @email, to: @addressed_to, subject: "New Email From #{@name}", body: @submission.content['body']
+    mail from: @email, reply_to: @email, to: @addressed_to, subject: "New Email From #{@name}", body: @submission.content['body']
   end
 end
