@@ -29,6 +29,7 @@ class SubmissionsController < ApplicationController
       if @did_save
         format.html { redirect_to @landing_page, notice: 'Submission was successfully created.' }
         format.json { render :show, status: :created, location: @submission }
+        NewMessageNotificationJob.new(@submission).enqueue
       else
         format.html { render :new }
         format.json { render json: @submission.errors, status: :unprocessable_entity }
