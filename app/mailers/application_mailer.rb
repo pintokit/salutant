@@ -7,10 +7,10 @@ class ApplicationMailer < ActionMailer::Base
 
     if @submission.content['sent_to'] == :mazza
       @addressed_to = "David Mazza <hello@peaking.co>"
-      @subject = "Message On davidmazza.com"
+      @subject = "Message on davidmazza.com"
     else
       @addressed_to = "David Solis <hola@peaking.co>"
-      @subject = "Message On davidsolis.me"
+      @subject = "Message on davidsolis.me"
     end
 
     if @submission.name.blank?
