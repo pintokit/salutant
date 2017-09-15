@@ -5,7 +5,7 @@ class SubmissionsController < ApplicationController
 
   # GET /submissions
   def index
-    @submissions = Submission.all.order(:filter_result).reverse
+    @submissions = Submission.all
     @unread_count = Submission.where(is_unread: true).count
   end
 
@@ -29,6 +29,7 @@ class SubmissionsController < ApplicationController
       if @did_save
         format.html { redirect_to @landing_page, notice: 'Submission was successfully created.' }
         format.json { render :show, status: :created, location: @submission }
+        NewMessageNotificationJob.new(@submission).enqueue
       else
         format.html { render :new }
         format.json { render json: @submission.errors, status: :unprocessable_entity }
