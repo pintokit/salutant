@@ -5,7 +5,7 @@ class SubmissionsController < ApplicationController
 
   # GET /submissions
   def index
-    @submissions = Submission.all.order(:created_at).reverse
+    @submissions = Submission.all.order(:created_at)
     @unread_count = Submission.where(is_unread: true).count
   end
 
