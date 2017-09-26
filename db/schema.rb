@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 20170915031333) do
     t.jsonb "content", default: "{}"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.jsonb "headers"
     t.boolean "is_unread", default: true
   end
 
