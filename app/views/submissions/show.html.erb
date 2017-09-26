@@ -2,6 +2,9 @@
 <% heading "No Name" if @submission.name.blank? %>
 
 <dl>
+  <dd class="pull-right text-muted">
+    <small><%= time_ago_in_words(@submission.created_at) %> ago</small>
+  </dd>
   <dt>
     <h3>Email</h3>
   </dt>
