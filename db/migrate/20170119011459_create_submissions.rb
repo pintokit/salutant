@@ -4,6 +4,7 @@ class CreateSubmissions < ActiveRecord::Migration[5.0]
       t.string :name
       t.string :email, null: false
       t.jsonb :content, default: '{}'
+      t.boolean :is_unread, default: true
 
       t.timestamps
     end
