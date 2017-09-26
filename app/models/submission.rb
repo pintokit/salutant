@@ -1,6 +1,6 @@
 class Submission < ApplicationRecord
   serialize :content
-  store_accessor :content, :sent_to, :body, :phone, :headers
+  store_accessor :content, :body, :phone, :sent_to, :headers
 
   enum sent_to: [:solis, :mazza, :peaking, :dev]
 
