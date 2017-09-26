@@ -2,7 +2,7 @@
   "name": "salutant",
   "description": "Process form submissions from static sites.",
   "scripts": {
-    "postdeploy": "rake db:migrate; rake db:seed"
+    "postdeploy": "rake db:migrate; rake db:seed; rake db:seed:demo"
   },
   "env": {
     "ADMIN_EMAIL": {
