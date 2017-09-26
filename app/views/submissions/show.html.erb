@@ -26,17 +26,19 @@
     <%= @submission.content['body'] %>
   </dd>
 
-  <dt>
+  <!-- <dt>
     <h3>Headers</h3>
   </dt>
   <dd class="well well-sm">
     <%= @submission.content['headers'] %>
-  </dd>
+  </dd> -->
 <dl>
 <br>
 
 <%= link_to 'Back', submissions_path, class:'btn btn-block btn-default' %>
 
-<%= link_to edit_submission_path(@submission), class: 'btn btn-block btn-primary' do %>
-  <span class="glyphicon glyphicon-pencil"></span>
+<% unless @submission.content['headers'].blank? %>
+  <%= link_to edit_submission_path(@submission), class: 'btn btn-block btn-primary' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+  <% end %>
 <% end %>
