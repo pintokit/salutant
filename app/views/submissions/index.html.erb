@@ -5,15 +5,11 @@
     <tr>
       <th class="hidden-xs"></th>
       <th colspan="2"></th>
-      <th>
-        <%= @unread_count %> Unread
-      </th>
       <th colspan="1"></th>
     </tr>
     <tr>
       <th class="hidden-xs">Sent To</th>
-      <th>Name</th>
-      <th>Email</th>
+      <th>From</th>
       <th>Message</th>
       <th colspan="2"></th>
     </tr>
@@ -30,14 +26,18 @@
           <%= submission.content['sent_to'] %>
         </td>
         <td>
-          <%= submission.name.truncate(10) unless submission.name.nil? %>
+          <% if submission.name.blank? %>
+            <%= submission.email.truncate(20) %>
+          <% else %>
+            <%= submission.name.truncate(20) %>
+          <% end %>
         </td>
         <td>
-          <%= submission.email.truncate(20) %>
+          <%= submission.content['body'].truncate(25) unless submission.content['body'].nil? %><br>
+          <%= submission.content['phone'].truncate(25) unless submission.content['phone'].nil? %>
         </td>
-        <td>
-          <%= submission.content['body'].truncate(15) unless submission.content['body'].nil? %><br>
-          <%= submission.content['phone'].truncate(15) unless submission.content['phone'].nil? %>
+        <td class="text-muted">
+          <small><%= time_ago_in_words(submission.created_at) %> ago</small>
         </td>
         <td>
           <%= link_to submission_path(submission), class: 'btn btn-default' do %>
