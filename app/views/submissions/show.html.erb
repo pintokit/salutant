@@ -1,3 +1,4 @@
+<% title "#{@submission.name.truncate(25) unless @submission.name.blank?}" %>
 <% heading "#{@submission.name.truncate(25) unless @submission.name.blank?}" %>
 <% heading "No Name" if @submission.name.blank? %>
 
