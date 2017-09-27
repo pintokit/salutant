@@ -1,5 +1,25 @@
 @import 'bootstrap/variables';
 
+$font-family-sans-serif:  "Avenir Next", Helvetica, Arial, sans-serif;
+$base-font-size:          16pt;
+$base-font-weight:        400;
+$title-font-weight:       700;
+$base-line-height:        1.5;
+
+$spacing-unit:            50px;
+
+$brand-color:             #ff6b61;
+$brand-primary:           #3d6d4f;
+$background-color:        #e3eaf0;
+
+$text-color:              #333333;
+$link-color:              $brand-primary;
+$link-hover-color:        $brand-primary;
+
+/**
+    Alerts
+**/
+
 .alert-notice {
   @extend .alert-success;
 }
@@ -18,10 +38,32 @@ img {
   font-size: $font-size-small;
 }
 
-.page-header {
-  background-color: $brand-primary;
-  margin-top: 0;
-  padding: 15px;
+/**
+    Site Defaults
+**/
+
+html, body {
+  background-color: $background-color;
+}
+
+h1, h2, h3, h4 {
+  font: $font-family-sans-serif;
+  font-weight: $title-font-weight;
+  color: $brand-primary;
+}
+
+p {
+  font-weight: $base-font-weight;
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+}
+
+a {
+  color: $link-color;
+}
+
+a:hover, a:focus {
+  color: $link-hover-color;
 }
 
 table {
@@ -31,4 +73,22 @@ table {
   td {
     text-align: center;
   }
+}
+
+/**
+    Headers
+**/
+
+.page-header {
+  background-color: $brand-color;
+  margin-top: 0;
+  padding: 15px;
+}
+
+/**
+    Footer
+**/
+
+.footer {
+  font-size: $base-font-size * .5;
 }
