@@ -8,7 +8,7 @@
     "ADMIN_EMAIL": {
       "required": true
     },
-    "ADMIN_PASSWORD": {
+    "ADMIN_PW": {
       "required": true
     },
     "DATABASE_URL": {
