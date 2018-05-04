@@ -27,6 +27,7 @@ Run the `bin/setup` script. This script will:
 - Create account with [Skylight](https://www.skylight.io), to get free analytics
 - Use default mailer with a personal Email address
 - Last required variable is production app domain
+- Run `rake db:seed` once all variables have been replaced
 
 ### Run it!
 
