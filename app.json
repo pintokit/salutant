@@ -23,6 +23,9 @@
     "HEROKU_APP_NAME": {
       "required": true
     },
+    "JWT_AUTHENTICATION": {
+      "required": true
+    },
     "LANG": {
       "required": true
     },
