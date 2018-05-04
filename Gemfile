@@ -1,14 +1,15 @@
 source 'https://rubygems.org'
 
-ruby '2.4.2'
+ruby '2.5.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails'
-# Use postgresql as the database for Active Record
-gem 'pg'
 # Use Puma as the app server
 gem 'puma'
-# Use Redis adapter to run Action Cable in production
-gem 'redis'
+# Library to optimize and cache expensive computations.
+gem 'bootsnap', require: false
+
+# Use postgresql as the database for Active Record
+gem 'pg'
 # Serialize your ActiveRecord objects into the desired response JSON
 gem 'active_model_serializers'
 
