@@ -6,10 +6,10 @@ class TokenGeneratorsController < ApplicationController
     auth_header = request.headers['Authorization'].split(' ').last
     if auth_header == ENV.fetch("JWT_AUTHENTICATION")
       response.status = 200
-      render json: "JWT Token is here"
+      render plain: "JWT Token is here"
     else
       response.status = 401
-      render json: ""
+      render plain: ""
     end
   end
 end
