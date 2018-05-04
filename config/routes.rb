@@ -20,4 +20,5 @@ Rails.application.routes.draw do
   end
 
   resources :submissions
+  post 'request_jwt', to: 'token_generators#create'
 end
