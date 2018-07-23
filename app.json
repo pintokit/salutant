@@ -11,6 +11,9 @@
     "ADMIN_PASSWORD": {
       "required": true
     },
+    "DATABASE_URL": {
+      "required": true
+    },
     "GMAIL_USERNAME": {
       "required": true
     },
