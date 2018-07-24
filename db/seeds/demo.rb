@@ -1,4 +1,4 @@
-User.create(email: ENV['DEMO_EMAIL'], password: ENV['DEMO_PW'], confirmed_at: Time.now)
+User.create(email: ENV['DEMO_EMAIL'], password: ENV['DEMO_PASSWORD'], confirmed_at: Time.now)
 
 Submission.create(name: "Tim Brown", email: "designthinking@ideo.com", created_at: Time.now, content: {"body"=>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "sent_to"=>:mazza })
 

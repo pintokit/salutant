@@ -8,13 +8,13 @@
     "ADMIN_EMAIL": {
       "required": true
     },
-    "ADMIN_PW": {
+    "ADMIN_PASSWORD": {
       "required": true
     },
     "DEMO_EMAIL": {
       "required": true
     },
-    "DEMO_PW": {
+    "DEMO_PASSWORD": {
       "required": true
     },
     "DATABASE_URL": {
