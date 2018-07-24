@@ -81,7 +81,7 @@ class SubmissionsController < ApplicationController
 
     def request_submission_headers_from(request)
       # Collect all CGI-style HTTP headers except cookies for privacy
-      headers = request.env.select { |k,v| selected_headers.include? k }
+      headers = request.env
 
       landing_page = request.headers['HTTP_REFERER']
       return landing_page, headers
