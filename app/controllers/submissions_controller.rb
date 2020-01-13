@@ -65,7 +65,8 @@ class SubmissionsController < ApplicationController
       if allowed(request)
         parse_submission
       else
-        render :json => "404 Not Found", :status => 404
+        @error = "Request originated from unknown URL"
+        render "application/_error", status: 401
       end
     end
 
