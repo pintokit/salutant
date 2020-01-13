@@ -93,7 +93,7 @@ class SubmissionsController < ApplicationController
     def allowed(request)
       # Check origin header from incoming request
       case request.headers['ORIGIN']
-      when 'http://davidsolis.me'
+      when 'https://davidsolis.me'
         return true
       when 'http://www.davidmazza.com'
         return true
@@ -112,7 +112,7 @@ class SubmissionsController < ApplicationController
 
     def addressed_to(request)
       case request.headers['HTTP_REFERER']
-      when 'http://davidsolis.me/'
+      when 'https://davidsolis.me/'
         return :solis
       when 'http://www.davidmazza.com/'
         return :mazza
