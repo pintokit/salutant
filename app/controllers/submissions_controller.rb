@@ -97,9 +97,7 @@ class SubmissionsController < ApplicationController
         return true
       when 'http://www.davidmazza.com'
         return true
-      when 'http://notes.soliskit.com'
-        return true
-      when 'http://peaking.co'
+      when 'https://peaking.co'
         return true
       when "https://#{ENV['APP_DOMAIN']}"
         return true
@@ -116,9 +114,7 @@ class SubmissionsController < ApplicationController
         return :solis
       when 'http://www.davidmazza.com/'
         return :mazza
-      when 'http://notes.soliskit.com/'
-        return :peaking
-      when 'http://peaking.co/'
+      when 'https://peaking.co/'
         return :peaking
       when "https://#{ENV['APP_DOMAIN']}/submissions/new"
         return :dev
