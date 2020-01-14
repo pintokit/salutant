@@ -5,7 +5,7 @@
 
 This project requires:
 
-* Ruby 2.5.1, preferably managed using [RVM](http://rvm.io)
+* Ruby 2.6.5, preferably managed using [RVM](http://rvm.io)
 * PostgreSQL must be installed and accepting connections
 * [Redis](http://redis.io) must be installed and running on localhost with the default port
 
