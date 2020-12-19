@@ -16,7 +16,7 @@ gem 'active_model_serializers'
 # Use Font Awesome Rails for Font Awesome icons
 gem 'font-awesome-rails'
 # Use Bootstrap with SCSS
-gem 'bootstrap-sass'
+gem 'bootstrap', '~> 5.0.0.alpha3'
 # Use SCSS for stylesheets
 gem 'sass-rails'
 # Use jquery as the JavaScript library
