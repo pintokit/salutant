@@ -1,5 +1,3 @@
-@import 'bootstrap/variables';
-
 $font-family-sans-serif:  "Avenir Next", Helvetica, Arial, sans-serif;
 $base-font-size:          16pt;
 $base-font-weight:        400;
@@ -20,22 +18,29 @@ $link-hover-color:        $brand-primary;
     Alerts
 **/
 
-.alert-notice {
-  @extend .alert-success;
+.banner-notice {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
 }
 
-.alert-alert {
-  @extend .alert-danger;
+.banner-alert {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
 }
 
 img {
-  @extend .img-responsive;
+  max-width: 100%;
+  height: auto;
 }
 
 .validation-error {
   margin-top: 2px;
-  color: $brand-danger;
-  font-size: $font-size-small;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+  color: #8a6d3b;
+  font-size: smaller;
 }
 
 /**
