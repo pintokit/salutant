@@ -6,63 +6,92 @@ final class AppTests: XCTestCase {
     var app: Application!
     
     override func setUp() async throws {
+        // Create a test Application using your custom factory or standard init
         self.app = try await Application.make(.testing)
         try await configure(app)
+        // Run migrations so your test DB schema is ready
         try await app.autoMigrate()
     }
     
-    override func tearDown() async throws { 
+    override func tearDown() async throws {
+        // Revert migrations (clean up) and shut down the app
         try await app.autoRevert()
         try await self.app.asyncShutdown()
         self.app = nil
     }
     
-    func testHelloWorld() async throws {
-        try await self.app.test(.GET, "hello", afterResponse: { res async in
-            XCTAssertEqual(res.status, .ok)
-            XCTAssertEqual(res.body.string, "Hello, world!")
-        })
-    }
+    // MARK: - Messages Tests
     
-    func testTodoIndex() async throws {
-        let sampleTodos = [Todo(title: "sample1"), Todo(title: "sample2")]
-        try await sampleTodos.create(on: self.app.db)
+    func testMessageIndex() async throws {
+        // Insert some sample messages directly into the DB
+        let sampleMessages = [
+            Message(sender: "Alice", content: "First message"),
+            Message(sender: "Bob",   content: "Second message")
+        ]
+        try await sampleMessages.create(on: self.app.db)
         
-        try await self.app.test(.GET, "todos", afterResponse: { res async throws in
+        // Call GET /messages
+        try await self.app.test(.GET, "messages", afterResponse: { res async throws in
             XCTAssertEqual(res.status, .ok)
+            
+            // Decode the response as an array of MessageDTO
+            let fetchedDTOs = try res.content.decode([MessageDTO].self)
+            
+            // Convert the original models to DTOs and compare
+            let expectedDTOs = sampleMessages.map { $0.toDTO() }
+            
+            // Sort if needed (so we compare in a consistent order)
             XCTAssertEqual(
-                try res.content.decode([TodoDTO].self).sorted(by: { $0.title ?? "" < $1.title ?? "" }),
-                sampleTodos.map { $0.toDTO() }.sorted(by: { $0.title ?? "" < $1.title ?? "" })
+                fetchedDTOs.sorted { $0.sender < $1.sender },
+                expectedDTOs.sorted { $0.sender < $1.sender }
             )
         })
     }
     
-    func testTodoCreate() async throws {
-        let newDTO = TodoDTO(id: nil, title: "test")
+    func testMessageCreate() async throws {
+        // Construct the DTO we want to send
+        let newDTO = MessageDTO(id: nil, sender: "Charlie", content: "Hello from Charlie")
         
-        try await self.app.test(.POST, "todos", beforeRequest: { req in
+        // Call POST /messages with JSON body
+        try await self.app.test(.POST, "messages", beforeRequest: { req in
             try req.content.encode(newDTO)
         }, afterResponse: { res async throws in
+            // Depending on your route, you might get .ok or a redirect (3xx).
             XCTAssertEqual(res.status, .ok)
-            let models = try await Todo.query(on: self.app.db).all()
-            XCTAssertEqual(models.map { $0.toDTO().title }, [newDTO.title])
+            
+            // Fetch messages from the DB and confirm it was created
+            let stored = try await Message.query(on: self.app.db).all()
+            XCTAssertEqual(stored.count, 1)
+            XCTAssertEqual(stored.first?.sender, newDTO.sender)
+            XCTAssertEqual(stored.first?.content, newDTO.content)
         })
     }
     
-    func testTodoDelete() async throws {
-        let testTodos = [Todo(title: "test1"), Todo(title: "test2")]
-        try await testTodos.create(on: app.db)
+    func testMessageDelete() async throws {
+        // Create two messages in the DB
+        let messages = [
+            Message(sender: "David", content: "Temp 1"),
+            Message(sender: "Erin",  content: "Temp 2")
+        ]
+        try await messages.create(on: app.db)
         
-        try await self.app.test(.DELETE, "todos/\(testTodos[0].requireID())", afterResponse: { res async throws in
+        // Delete the first message: DELETE /messages/:id
+        try await self.app.test(.DELETE, "messages/\(messages[0].requireID())", afterResponse: { res async throws in
+            // Expect a 204 No Content
             XCTAssertEqual(res.status, .noContent)
-            let model = try await Todo.find(testTodos[0].id, on: self.app.db)
-            XCTAssertNil(model)
+            
+            // Verify the message was indeed deleted
+            let remaining = try await Message.query(on: self.app.db).all()
+            XCTAssertEqual(remaining.count, 1)
+            XCTAssertEqual(remaining[0].sender, "Erin")
         })
     }
 }
 
-extension TodoDTO: Equatable {
+// MARK: - Equatable Conformance
+// If you compare MessageDTO arrays in your tests, add Equatable to your DTO:
+extension MessageDTO: Equatable {
     public static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.id == rhs.id && lhs.title == rhs.title
+        lhs.id == rhs.id && lhs.sender == rhs.sender && lhs.content == rhs.content
     }
 }
